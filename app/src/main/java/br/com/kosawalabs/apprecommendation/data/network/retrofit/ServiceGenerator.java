@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
-    private static String API_BASE_URL = BuildConfig.BASE_URL + "api/";
+    private static String API_BASE_URL = BuildConfig.BASE_URL;
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -22,6 +22,7 @@ public class ServiceGenerator {
             new HttpLoggingInterceptor()
                     .setLevel(HttpLoggingInterceptor.Level.BODY);
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static Retrofit retrofit;
 
     public static <S> S createService(Class<S> serviceClass) {

@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface AppRecommendationClient {
-    @GET("/apps")
+    @GET("/api/apps/")
     Call<AppResult> getApps(@Query("offset") Long offset,
                             @Query("limit") Long limit);
 }

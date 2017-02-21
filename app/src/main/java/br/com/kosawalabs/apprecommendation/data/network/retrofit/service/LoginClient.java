@@ -6,7 +6,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface LoginClient {
-    @POST("/api-token-auth")
+    @POST("/api/api-token-auth/")
     Call<SessionToken> login(@Query("username") String username,
                              @Query("password") String password);
 }
