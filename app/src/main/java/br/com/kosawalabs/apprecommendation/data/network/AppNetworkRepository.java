@@ -46,4 +46,31 @@ public class AppNetworkRepository implements AppDataRepository {
             }
         });
     }
+
+    @Override
+    public void getApp(Integer appId, final DataCallback<App> callback) {
+        client.getApp(appId).enqueue(new Callback<App>() {
+            @Override
+            public void onResponse(Call<App> call, Response<App> response) {
+                int responseCode = response.code();
+                switch (responseCode) {
+                    case 200:
+                        App app = response.body();
+                        if (app != null) {
+                            callback.onSuccess(app);
+                        } else {
+                            callback.onError(new DataError("Empty Body"));
+                        }
+                        break;
+                    default:
+                        callback.onError(new DataError("Error Status: " + responseCode));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<App> call, Throwable t) {
+                callback.onError(new DataError(t.getCause().getLocalizedMessage()));
+            }
+        });
+    }
 }
