@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
         String token = tokenRepository.getToken();
         if (!TextUtils.isEmpty(token)) {
+            AppListActivity.start(this, token);
             finish();
         }
     }
@@ -119,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                 showProgress(false);
                 if (!TextUtils.isEmpty(result.getToken())) {
                     tokenRepository.putToken(result.getToken());
+                    AppListActivity.start(LoginActivity.this, result.getToken());
                     finish();
                 } else {
                     onError(new DataError("Empty Token"));
