@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.kosawalabs.apprecommendation.dummy.DummyContent;
+import br.com.kosawalabs.apprecommendation.data.DataCallback;
+import br.com.kosawalabs.apprecommendation.data.DataError;
+import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
+import br.com.kosawalabs.apprecommendation.data.pojo.App;
+
+import static br.com.kosawalabs.apprecommendation.dummy.DummyContent.ITEM_MAP;
 
 public class AppListActivity extends AppCompatActivity {
 
@@ -40,26 +46,38 @@ public class AppListActivity extends AppCompatActivity {
 
         final View recyclerView = findViewById(R.id.app_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
 
         if (findViewById(R.id.app_detail_container) != null) {
             mTwoPane = true;
         }
 
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
+
+        AppNetworkRepository networkRepository = new AppNetworkRepository(token);
+        networkRepository.getApps(0L, 0L, new DataCallback<List<App>>() {
+            @Override
+            public void onSuccess(List<App> result) {
+                setupRecyclerView((RecyclerView) recyclerView, result);
+            }
+
+            @Override
+            public void onError(DataError error) {
+                Log.d("TEST", error.getCause());
+            }
+        });
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<App> apps) {
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(apps));
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<App> apps;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
-            mValues = items;
+        public SimpleItemRecyclerViewAdapter(List<App> apps) {
+            this.apps = apps;
         }
 
         @Override
@@ -71,16 +89,16 @@ public class AppListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mItem = this.apps.get(position);
+            holder.mIdView.setText(String.valueOf(this.apps.get(position).getId()));
+            holder.mContentView.setText(this.apps.get(position).getName());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(AppDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        arguments.putString(AppDetailFragment.ARG_ITEM_ID, ITEM_MAP.get("1").id);
                         AppDetailFragment fragment = new AppDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -89,7 +107,7 @@ public class AppListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, AppDetailActivity.class);
-                        intent.putExtra(AppDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        intent.putExtra(AppDetailFragment.ARG_ITEM_ID, ITEM_MAP.get("1").id);
 
                         context.startActivity(intent);
                     }
@@ -99,14 +117,14 @@ public class AppListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return mValues.size();
+            return this.apps.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
             public final TextView mIdView;
             public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+            public App mItem;
 
             public ViewHolder(View view) {
                 super(view);
