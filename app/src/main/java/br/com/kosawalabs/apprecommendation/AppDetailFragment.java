@@ -1,38 +1,33 @@
 package br.com.kosawalabs.apprecommendation;
 
 import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import br.com.kosawalabs.apprecommendation.dummy.DummyContent;
+import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
+import br.com.kosawalabs.apprecommendation.data.DataCallback;
+import br.com.kosawalabs.apprecommendation.data.DataError;
+import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
+import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
-/**
- * A fragment representing a single App detail screen.
- * This fragment is either contained in a {@link AppListActivity}
- * in two-pane mode (on tablets) or a {@link AppDetailActivity}
- * on handsets.
- */
+import static br.com.kosawalabs.apprecommendation.AppListActivity.EXTRAS_SESSION_TOKEN;
+
 public class AppDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
+    private CollapsingToolbarLayout appBarLayout;
+    private TextView detail;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    private AppDataRepository repository;
+
+    private App mItem;
+
     public AppDetailFragment() {
     }
 
@@ -40,30 +35,43 @@ public class AppDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+        if (getArguments().containsKey(ARG_ITEM_ID) && getArguments().containsKey(EXTRAS_SESSION_TOKEN)) {
+            String token = getArguments().getString(EXTRAS_SESSION_TOKEN);
+            int appId = getArguments().getInt(ARG_ITEM_ID);
+            repository = new AppNetworkRepository(token);
+            repository.getApp(appId, new DataCallback<App>() {
+                @Override
+                public void onSuccess(App result) {
+                    mItem = result;
+                    setTitle();
+                    setDescription();
+                }
 
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
+                @Override
+                public void onError(DataError error) {
+                    Log.d("TEST", String.valueOf(error));
+                }
+            });
         }
+
+        Activity activity = this.getActivity();
+        appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.app_detail, container, false);
-
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.app_detail)).setText(mItem.details);
-        }
-
+        detail = (TextView) rootView.findViewById(R.id.app_detail);
         return rootView;
+    }
+
+    private void setTitle() {
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(mItem.getName());
+        }
+    }
+
+    private void setDescription() {
+        detail.setText(mItem.getName());
     }
 }

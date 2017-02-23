@@ -98,7 +98,8 @@ public class AppListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(AppDetailFragment.ARG_ITEM_ID, ITEM_MAP.get("1").id);
+                        arguments.putInt(AppDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                        arguments.putString(EXTRAS_SESSION_TOKEN, token);
                         AppDetailFragment fragment = new AppDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -107,7 +108,10 @@ public class AppListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, AppDetailActivity.class);
-                        intent.putExtra(AppDetailFragment.ARG_ITEM_ID, ITEM_MAP.get("1").id);
+                        Bundle arguments = new Bundle();
+                        arguments.putInt(AppDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                        arguments.putString(EXTRAS_SESSION_TOKEN, token);
+                        intent.putExtras(arguments);
 
                         context.startActivity(intent);
                     }
