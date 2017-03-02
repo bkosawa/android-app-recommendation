@@ -25,6 +25,7 @@ public class AppListActivity extends AppCompatActivity {
 
     public static final String EXTRAS_SESSION_TOKEN = "br.com.kosawalabs.apprecommendation.extras.SESSION_TOKEN";
     private boolean mTwoPane;
+    private AppNetworkRepository networkRepository;
     private String token;
 
     public static void start(Activity activity, String token) {
@@ -51,11 +52,15 @@ public class AppListActivity extends AppCompatActivity {
 
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
 
-        AppNetworkRepository networkRepository = new AppNetworkRepository(token);
+        networkRepository = new AppNetworkRepository(token);
+        loadFirstPage((RecyclerView) recyclerView);
+    }
+
+    private void loadFirstPage(final RecyclerView recyclerView) {
         networkRepository.getApps(0L, 0L, new DataCallback<List<App>>() {
             @Override
             public void onSuccess(List<App> result) {
-                setupRecyclerView((RecyclerView) recyclerView, result);
+                setupRecyclerView(recyclerView, result);
             }
 
             @Override
