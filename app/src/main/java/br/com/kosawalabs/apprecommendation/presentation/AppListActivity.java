@@ -29,7 +29,7 @@ import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION
 public class AppListActivity extends AppCompatActivity implements AppListView {
     private boolean mTwoPane;
     private RecyclerView recyclerView;
-    private AppNetworkRepository networkRepository;
+    private AppListPresenter presenter;
     private String token;
 
     public static void start(Activity activity, String token) {
@@ -55,23 +55,13 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         }
 
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
-
-        networkRepository = new AppNetworkRepository(token);
-        loadFirstPage();
+        presenter = new AppListPresenter(this, new AppNetworkRepository(token));
     }
 
-    private void loadFirstPage() {
-        networkRepository.getApps(0L, 0L, new DataCallback<List<App>>() {
-            @Override
-            public void onSuccess(List<App> result) {
-                showApps(result);
-            }
-
-            @Override
-            public void onError(DataError error) {
-                Log.d("TEST", error.getCause());
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.fetchFirstPage();
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<App> apps) {
