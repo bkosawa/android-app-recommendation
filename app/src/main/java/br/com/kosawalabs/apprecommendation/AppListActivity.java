@@ -22,9 +22,9 @@ import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.AppListView;
 
-public class AppListActivity extends AppCompatActivity implements AppListView {
+import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
-    public static final String EXTRAS_SESSION_TOKEN = "br.com.kosawalabs.apprecommendation.extras.SESSION_TOKEN";
+public class AppListActivity extends AppCompatActivity implements AppListView {
     private boolean mTwoPane;
     private RecyclerView recyclerView;
     private AppNetworkRepository networkRepository;

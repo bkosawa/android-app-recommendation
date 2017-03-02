@@ -16,7 +16,7 @@ import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
-import static br.com.kosawalabs.apprecommendation.AppListActivity.EXTRAS_SESSION_TOKEN;
+import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
 public class AppDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";

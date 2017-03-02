@@ -2,15 +2,12 @@ package br.com.kosawalabs.apprecommendation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import static br.com.kosawalabs.apprecommendation.AppListActivity.EXTRAS_SESSION_TOKEN;
+import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
 public class AppDetailActivity extends AppCompatActivity {
 
