@@ -20,11 +20,13 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.presentation.AppListView;
 
-public class AppListActivity extends AppCompatActivity {
+public class AppListActivity extends AppCompatActivity implements AppListView {
 
     public static final String EXTRAS_SESSION_TOKEN = "br.com.kosawalabs.apprecommendation.extras.SESSION_TOKEN";
     private boolean mTwoPane;
+    private RecyclerView recyclerView;
     private AppNetworkRepository networkRepository;
     private String token;
 
@@ -43,7 +45,7 @@ public class AppListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        final View recyclerView = findViewById(R.id.app_list);
+        recyclerView = (RecyclerView) findViewById(R.id.app_list);
         assert recyclerView != null;
 
         if (findViewById(R.id.app_detail_container) != null) {
@@ -53,14 +55,14 @@ public class AppListActivity extends AppCompatActivity {
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
 
         networkRepository = new AppNetworkRepository(token);
-        loadFirstPage((RecyclerView) recyclerView);
+        loadFirstPage();
     }
 
-    private void loadFirstPage(final RecyclerView recyclerView) {
+    private void loadFirstPage() {
         networkRepository.getApps(0L, 0L, new DataCallback<List<App>>() {
             @Override
             public void onSuccess(List<App> result) {
-                setupRecyclerView(recyclerView, result);
+                showApps(result);
             }
 
             @Override
@@ -72,6 +74,11 @@ public class AppListActivity extends AppCompatActivity {
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<App> apps) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(apps));
+    }
+
+    @Override
+    public void showApps(List<App> apps) {
+        setupRecyclerView(recyclerView, apps);
     }
 
     public class SimpleItemRecyclerViewAdapter
