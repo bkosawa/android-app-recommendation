@@ -21,8 +21,6 @@ import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
-import static br.com.kosawalabs.apprecommendation.dummy.DummyContent.ITEM_MAP;
-
 public class AppListActivity extends AppCompatActivity {
 
     public static final String EXTRAS_SESSION_TOKEN = "br.com.kosawalabs.apprecommendation.extras.SESSION_TOKEN";
