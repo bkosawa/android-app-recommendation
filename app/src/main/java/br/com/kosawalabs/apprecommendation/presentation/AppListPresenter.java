@@ -9,9 +9,11 @@ import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
 public class AppListPresenter {
-    private AppDataRepository repository;
+    private final AppListView view;
+    private final AppDataRepository repository;
 
-    public AppListPresenter(AppDataRepository repository) {
+    public AppListPresenter(AppListView view, AppDataRepository repository) {
+        this.view = view;
         this.repository = repository;
     }
 
@@ -19,7 +21,7 @@ public class AppListPresenter {
         repository.getApps(0L, 0L, new DataCallback<List<App>>() {
             @Override
             public void onSuccess(List<App> result) {
-
+                view.showApps(result);
             }
 
             @Override
