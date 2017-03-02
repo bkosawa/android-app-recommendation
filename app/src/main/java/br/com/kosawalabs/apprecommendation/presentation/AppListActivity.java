@@ -1,4 +1,4 @@
-package br.com.kosawalabs.apprecommendation;
+package br.com.kosawalabs.apprecommendation.presentation;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,11 +16,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.kosawalabs.apprecommendation.AppDetailActivity;
+import br.com.kosawalabs.apprecommendation.AppDetailFragment;
+import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
-import br.com.kosawalabs.apprecommendation.presentation.AppListView;
 
 import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
