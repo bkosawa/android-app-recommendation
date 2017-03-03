@@ -29,8 +29,6 @@ public class AppListPresenterTest {
     @Mock
     private AppListView view;
 
-    private List<App> mockList;
-
     @Captor
     private ArgumentCaptor<DataCallback<List<App>>> dataCallbackArgumentCaptor;
 
@@ -39,7 +37,6 @@ public class AppListPresenterTest {
     @Before
     public void setup() {
         initMocks(this);
-        mockList = getMockedAppList();
         presenter = new AppListPresenterImpl(view, repository);
     }
 
@@ -58,6 +55,8 @@ public class AppListPresenterTest {
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
+        List<App> mockList = getMockedAppList(5);
+
         dataCallback.onSuccess(mockList);
 
         verify(view).showApps(mockList);
@@ -75,12 +74,41 @@ public class AppListPresenterTest {
         assertFalse(presenter.shouldLoadMore());
     }
 
-    private List<App> getMockedAppList() {
+    @Test
+    public void givenFetchFirstPageIsCalledAndGetAppsHasReturnWithPageSizeItemsItShouldBePossibleToLoadMore() {
+        presenter.fetchFirstPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        List<App> mockList = getMockedAppList(25);
+
+        dataCallback.onSuccess(mockList);
+
+        assertTrue(presenter.shouldLoadMore());
+    }
+
+    @Test
+    public void givenFetchFirstPageIsCalledAndGetAppsHasReturnWithLessThanPageSizeItemsItShouldNotBePossibleToLoadMore() {
+        presenter.fetchFirstPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        List<App> mockList = getMockedAppList(24);
+
+        dataCallback.onSuccess(mockList);
+
+        assertFalse(presenter.shouldLoadMore());
+    }
+
+    private List<App> getMockedAppList(int listSize) {
         List<App> mockedAppList = new ArrayList<>();
-        mockedAppList.add(new App());
-        mockedAppList.add(new App());
-        mockedAppList.add(new App());
-        mockedAppList.add(new App());
+        for (int i = 0; i < listSize; i++) {
+            mockedAppList.add(new App());
+        }
         return mockedAppList;
     }
 }
