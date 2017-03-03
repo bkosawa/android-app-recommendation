@@ -149,6 +149,25 @@ public class AppListPresenterTest {
     }
 
     @Test
+    public void givenFetchNextPageIsCalledForTheSecondTimeAndGetAppsIsSuccessfullyItShouldCallShowMoreAppsOnViewWithCorrectOffset() {
+        presenter.fetchNextPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        List<App> mockList = getMockedAppList((int) PAGE_SIZE);
+
+        dataCallback.onSuccess(mockList);
+
+        verify(view).showMoreApps(mockList);
+
+        presenter.fetchNextPage();
+
+        verify(repository).getApps(eq(PAGE_SIZE), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+    }
+
+    @Test
     public void givenFetchNextPageIsCalledAndGetAppsReturnErrorItShouldNotCallShowMoreAppsOnView() {
         presenter.fetchNextPage();
 
