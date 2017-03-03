@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -28,6 +28,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     private RecyclerView recyclerView;
     private AppListPresenterImpl presenter;
     private String token;
+    private LinearLayoutManager layoutManager;
     private SimpleItemRecyclerViewAdapter listAdapter;
 
     public static void start(Activity activity, String token) {
@@ -47,6 +48,10 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
         recyclerView = (RecyclerView) findViewById(R.id.app_list);
         assert recyclerView != null;
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new AppListOnScrollListener());
 
         if (findViewById(R.id.app_detail_container) != null) {
             mTwoPane = true;
@@ -73,8 +78,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         listAdapter.setApps(apps);
     }
 
-    public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+    public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final List<App> apps;
 
@@ -148,6 +152,18 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
             public String toString() {
                 return super.toString() + " '" + mContentView.getText() + "'";
             }
+        }
+    }
+
+    private class AppListOnScrollListener extends RecyclerView.OnScrollListener {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
         }
     }
 }
