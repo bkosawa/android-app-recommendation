@@ -11,13 +11,16 @@ import java.util.List;
 
 import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
+import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
 import static br.com.kosawalabs.apprecommendation.presentation.AppListPresenterImpl.PAGE_SIZE;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -63,6 +66,19 @@ public class AppListPresenterTest {
     }
 
     @Test
+    public void givenFetchFirstPageIsCalledAndGetAppsReturnErrorItShouldNotCallShowAppsOnView() {
+        presenter.fetchFirstPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        dataCallback.onError(new DataError("Error"));
+
+        verify(view, never()).showApps(anyListOf(App.class));
+    }
+
+    @Test
     public void givenFetchFirstPageIsNotCalledYetItShouldBePossibleToLoadMore() {
         assertTrue(presenter.shouldLoadMore());
     }
@@ -100,6 +116,19 @@ public class AppListPresenterTest {
         List<App> mockList = getMockedAppList(24);
 
         dataCallback.onSuccess(mockList);
+
+        assertFalse(presenter.shouldLoadMore());
+    }
+
+    @Test
+    public void givenFetchFirstPageIsCalledAndGetAppsHasReturnWithErrorItShouldNotBePossibleToLoadMore() {
+        presenter.fetchFirstPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        dataCallback.onError(new DataError("Error"));
 
         assertFalse(presenter.shouldLoadMore());
     }
