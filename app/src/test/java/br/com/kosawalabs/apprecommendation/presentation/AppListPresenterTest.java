@@ -13,6 +13,7 @@ import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
+import static br.com.kosawalabs.apprecommendation.presentation.AppListPresenterImpl.PAGE_SIZE;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -44,14 +45,14 @@ public class AppListPresenterTest {
     public void givenFetchFirstPageIsCalledItShouldCallRepositoryWithZeroOffsetAndZeroLimit() {
         presenter.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(0L), any(DataCallback.class));
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), any(DataCallback.class));
     }
 
     @Test
     public void givenFetchFirstPageIsCalledAndGetAppsIsSuccessfullyItShouldCallShowAppsOnView() {
         presenter.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(0L), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
