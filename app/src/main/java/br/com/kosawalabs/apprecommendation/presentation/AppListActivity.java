@@ -70,6 +70,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         setupRecyclerView(recyclerView, apps);
     }
 
+    @Override
+    public void showMoreApps(List<App> apps) {
+
+    }
+
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 

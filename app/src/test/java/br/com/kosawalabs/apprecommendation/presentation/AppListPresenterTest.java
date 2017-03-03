@@ -134,6 +134,34 @@ public class AppListPresenterTest {
     }
 
     @Test
+    public void givenFetchNextPageIsCalledAndGetAppsIsSuccessfullyItShouldCallShowMoreAppsOnView() {
+        presenter.fetchNextPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        List<App> mockList = getMockedAppList(5);
+
+        dataCallback.onSuccess(mockList);
+
+        verify(view).showMoreApps(mockList);
+    }
+
+    @Test
+    public void givenFetchNextPageIsCalledAndGetAppsReturnErrorItShouldNotCallShowMoreAppsOnView() {
+        presenter.fetchNextPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        dataCallback.onError(new DataError("Error"));
+
+        verify(view, never()).showMoreApps(anyListOf(App.class));
+    }
+
+    @Test
     public void givenFetchNextPageIsCalledAndGetAppsHasNotReturnItShouldNotBePossibleToLoadMore() {
         presenter.fetchNextPage();
 

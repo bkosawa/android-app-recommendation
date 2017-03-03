@@ -55,6 +55,7 @@ public class AppListPresenterImpl implements AppListPresenter {
                     isLastPage = true;
                 }
                 current += result.size();
+                view.showMoreApps(result);
             }
 
             @Override
