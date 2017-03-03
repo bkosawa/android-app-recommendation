@@ -133,6 +133,56 @@ public class AppListPresenterTest {
         assertFalse(presenter.shouldLoadMore());
     }
 
+    @Test
+    public void givenFetchNextPageIsCalledAndGetAppsHasNotReturnItShouldNotBePossibleToLoadMore() {
+        presenter.fetchNextPage();
+
+        assertFalse(presenter.shouldLoadMore());
+    }
+
+    @Test
+    public void givenFetchNextPageIsCalledAndGetAppsHasReturnWithPageSizeItemsItShouldBePossibleToLoadMore() {
+        presenter.fetchNextPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        List<App> mockList = getMockedAppList(25);
+
+        dataCallback.onSuccess(mockList);
+
+        assertTrue(presenter.shouldLoadMore());
+    }
+
+    @Test
+    public void givenFetchNextPageIsCalledAndGetAppsHasReturnWithLessThanPageSizeItemsItShouldNotBePossibleToLoadMore() {
+        presenter.fetchNextPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        List<App> mockList = getMockedAppList(24);
+
+        dataCallback.onSuccess(mockList);
+
+        assertFalse(presenter.shouldLoadMore());
+    }
+
+    @Test
+    public void givenFetchNextPageIsCalledAndGetAppsHasReturnWithErrorItShouldNotBePossibleToLoadMore() {
+        presenter.fetchNextPage();
+
+        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+
+        DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
+
+        dataCallback.onError(new DataError("Error"));
+
+        assertFalse(presenter.shouldLoadMore());
+    }
+
     private List<App> getMockedAppList(int listSize) {
         List<App> mockedAppList = new ArrayList<>();
         for (int i = 0; i < listSize; i++) {

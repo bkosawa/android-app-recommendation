@@ -45,6 +45,27 @@ public class AppListPresenterImpl implements AppListPresenter {
     }
 
     @Override
+    public void fetchNextPage() {
+        isLoading = true;
+        repository.getApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
+            @Override
+            public void onSuccess(List<App> result) {
+                isLoading = false;
+                if (result.size() < PAGE_SIZE) {
+                    isLastPage = true;
+                }
+                current += result.size();
+            }
+
+            @Override
+            public void onError(DataError error) {
+                isLoading = false;
+                isLastPage = true;
+            }
+        });
+    }
+
+    @Override
     public boolean shouldLoadMore() {
         return !isLoading && !isLastPage;
     }
