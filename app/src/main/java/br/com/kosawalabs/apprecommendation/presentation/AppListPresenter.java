@@ -7,4 +7,6 @@ public interface AppListPresenter {
     void fetchNextPage();
 
     boolean shouldLoadMore();
+
+    boolean listIsAtTheEnd();
 }

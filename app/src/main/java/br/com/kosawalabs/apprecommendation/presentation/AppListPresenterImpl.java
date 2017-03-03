@@ -70,4 +70,14 @@ public class AppListPresenterImpl implements AppListPresenter {
     public boolean shouldLoadMore() {
         return !isLoading && !isLastPage;
     }
+
+    @Override
+    public boolean listIsAtTheEnd() {
+        int visibleItemCount = view.getVisibleItemCount();
+        int totalItemCount = view.getTotalItemCount();
+        int firstVisibleItemPosition = view.getFirstVisibleItemPosition();
+        return (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                && firstVisibleItemPosition >= 0
+                && totalItemCount >= PAGE_SIZE;
+    }
 }

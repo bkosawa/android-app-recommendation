@@ -78,6 +78,21 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         listAdapter.setApps(apps);
     }
 
+    @Override
+    public int getVisibleItemCount() {
+        return layoutManager.getChildCount();
+    }
+
+    @Override
+    public int getTotalItemCount() {
+        return layoutManager.getItemCount();
+    }
+
+    @Override
+    public int getFirstVisibleItemPosition() {
+        return layoutManager.findFirstVisibleItemPosition();
+    }
+
     public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final List<App> apps;
@@ -164,6 +179,12 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
+
+            if (presenter.shouldLoadMore()) {
+                if (presenter.listIsAtTheEnd()) {
+                    presenter.fetchNextPage();
+                }
+            }
         }
     }
 }

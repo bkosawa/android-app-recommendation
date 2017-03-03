@@ -9,4 +9,10 @@ public interface AppListView {
     void showApps(List<App> apps);
 
     void showMoreApps(List<App> apps);
+
+    int getVisibleItemCount();
+
+    int getTotalItemCount();
+
+    int getFirstVisibleItemPosition();
 }
