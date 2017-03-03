@@ -30,7 +30,7 @@ public class AppListPresenterTest {
     private List<App> mockList;
 
     @Captor
-    private ArgumentCaptor<DataCallback> dataCallbackArgumentCaptor;
+    private ArgumentCaptor<DataCallback<List<App>>> dataCallbackArgumentCaptor;
 
     private AppListPresenter presenter;
 
@@ -61,7 +61,7 @@ public class AppListPresenterTest {
         verify(view).showApps(mockList);
     }
 
-    public List<App> getMockedAppList() {
+    private List<App> getMockedAppList() {
         List<App> mockedAppList = new ArrayList<>();
         mockedAppList.add(new App());
         mockedAppList.add(new App());
