@@ -28,6 +28,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     private RecyclerView recyclerView;
     private AppListPresenterImpl presenter;
     private String token;
+    private SimpleItemRecyclerViewAdapter listAdapter;
 
     public static void start(Activity activity, String token) {
         Intent intent = new Intent(activity, AppListActivity.class);
@@ -61,18 +62,15 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         presenter.fetchFirstPage();
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView, List<App> apps) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(apps));
-    }
-
     @Override
     public void showApps(List<App> apps) {
-        setupRecyclerView(recyclerView, apps);
+        listAdapter = new SimpleItemRecyclerViewAdapter(apps);
+        recyclerView.setAdapter(listAdapter);
     }
 
     @Override
     public void showMoreApps(List<App> apps) {
-
+        listAdapter.setApps(apps);
     }
 
     public class SimpleItemRecyclerViewAdapter
@@ -82,6 +80,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
         public SimpleItemRecyclerViewAdapter(List<App> apps) {
             this.apps = apps;
+        }
+
+        public void setApps(List<App> moreApps) {
+            this.apps.addAll(moreApps);
+            notifyDataSetChanged();
         }
 
         @Override
