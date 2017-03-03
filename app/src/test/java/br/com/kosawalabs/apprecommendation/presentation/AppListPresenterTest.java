@@ -14,6 +14,7 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
 import static br.com.kosawalabs.apprecommendation.presentation.AppListPresenterImpl.PAGE_SIZE;
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -65,6 +66,13 @@ public class AppListPresenterTest {
     @Test
     public void givenFetchFirstPageIsNotCalledYetItShouldBePossibleToLoadMore() {
         assertTrue(presenter.shouldLoadMore());
+    }
+
+    @Test
+    public void givenFetchFirstPageIsCalledAndGetAppsHasNotReturnItShouldNotBePossibleToLoadMore() {
+        presenter.fetchFirstPage();
+
+        assertFalse(presenter.shouldLoadMore());
     }
 
     private List<App> getMockedAppList() {
