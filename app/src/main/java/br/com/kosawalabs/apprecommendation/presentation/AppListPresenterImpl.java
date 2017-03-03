@@ -8,7 +8,7 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
-public class AppListPresenterImpl {
+public class AppListPresenterImpl implements AppListPresenter {
     private final AppListView view;
     private final AppDataRepository repository;
 
@@ -17,6 +17,7 @@ public class AppListPresenterImpl {
         this.repository = repository;
     }
 
+    @Override
     public void fetchFirstPage() {
         repository.getApps(0L, 0L, new DataCallback<List<App>>() {
             @Override

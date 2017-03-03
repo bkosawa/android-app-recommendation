@@ -30,7 +30,8 @@ public class AppListPresenterTest {
 
     @Captor
     private ArgumentCaptor<DataCallback> dataCallbackArgumentCaptor;
-    private AppListPresenterImpl presenter;
+
+    private AppListPresenter presenter;
 
     @Before
     public void setup() {
@@ -40,7 +41,7 @@ public class AppListPresenterTest {
     }
 
     @Test
-    public void givenFetchFirstPageIsCalledItShouldCallRepositoryWithZeroOffsetAndZeroLimit() throws Exception {
+    public void givenFetchFirstPageIsCalledItShouldCallRepositoryWithZeroOffsetAndZeroLimit() {
         presenter.fetchFirstPage();
 
         verify(repository).getApps(eq(0L), eq(0L), any(DataCallback.class));
