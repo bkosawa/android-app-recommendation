@@ -43,4 +43,9 @@ public class AppListPresenterImpl implements AppListPresenter {
             }
         });
     }
+
+    @Override
+    public boolean shouldLoadMore() {
+        return !isLoading && !isLastPage;
+    }
 }

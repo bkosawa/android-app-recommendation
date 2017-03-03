@@ -14,6 +14,7 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
 import static br.com.kosawalabs.apprecommendation.presentation.AppListPresenterImpl.PAGE_SIZE;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -59,6 +60,11 @@ public class AppListPresenterTest {
         dataCallback.onSuccess(mockList);
 
         verify(view).showApps(mockList);
+    }
+
+    @Test
+    public void givenFetchFirstPageIsNotCalledYetItShouldBePossibleToLoadMore() {
+        assertTrue(presenter.shouldLoadMore());
     }
 
     private List<App> getMockedAppList() {
