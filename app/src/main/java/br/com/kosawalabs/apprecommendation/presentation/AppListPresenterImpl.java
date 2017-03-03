@@ -8,11 +8,11 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
-public class AppListPresenter {
+public class AppListPresenterImpl {
     private final AppListView view;
     private final AppDataRepository repository;
 
-    public AppListPresenter(AppListView view, AppDataRepository repository) {
+    public AppListPresenterImpl(AppListView view, AppDataRepository repository) {
         this.view = view;
         this.repository = repository;
     }

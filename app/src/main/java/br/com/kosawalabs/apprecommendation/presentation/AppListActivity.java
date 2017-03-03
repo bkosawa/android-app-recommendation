@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,6 @@ import java.util.List;
 import br.com.kosawalabs.apprecommendation.AppDetailActivity;
 import br.com.kosawalabs.apprecommendation.AppDetailFragment;
 import br.com.kosawalabs.apprecommendation.R;
-import br.com.kosawalabs.apprecommendation.data.DataCallback;
-import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
@@ -29,7 +26,7 @@ import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION
 public class AppListActivity extends AppCompatActivity implements AppListView {
     private boolean mTwoPane;
     private RecyclerView recyclerView;
-    private AppListPresenter presenter;
+    private AppListPresenterImpl presenter;
     private String token;
 
     public static void start(Activity activity, String token) {
@@ -55,7 +52,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         }
 
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
-        presenter = new AppListPresenter(this, new AppNetworkRepository(token));
+        presenter = new AppListPresenterImpl(this, new AppNetworkRepository(token));
     }
 
     @Override

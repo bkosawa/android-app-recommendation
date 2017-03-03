@@ -30,13 +30,13 @@ public class AppListPresenterTest {
 
     @Captor
     private ArgumentCaptor<DataCallback> dataCallbackArgumentCaptor;
-    private AppListPresenter presenter;
+    private AppListPresenterImpl presenter;
 
     @Before
     public void setup() {
         initMocks(this);
         mockList = getMockedAppList();
-        presenter = new AppListPresenter(view, repository);
+        presenter = new AppListPresenterImpl(view, repository);
     }
 
     @Test
