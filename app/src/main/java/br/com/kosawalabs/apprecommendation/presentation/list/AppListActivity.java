@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +21,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
-import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
 import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
+import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
 import br.com.kosawalabs.apprecommendation.service.UploadMyAppsIService;
 
 import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
@@ -50,6 +52,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new MyBottomNavListenner());
 
         recyclerView = (RecyclerView) findViewById(R.id.app_list);
         assert recyclerView != null;
@@ -208,6 +215,23 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
                     presenter.fetchNextPage();
                 }
             }
+        }
+    }
+
+    private static class MyBottomNavListenner implements BottomNavigationView.OnNavigationItemSelectedListener {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_list:
+
+                    break;
+                case R.id.action_list_recommended:
+
+                    break;
+                default:
+                    return false;
+            }
+            return true;
         }
     }
 }
