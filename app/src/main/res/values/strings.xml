@@ -10,6 +10,8 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
+    <string name="update_my_apps">Upload my apps</string>
+
     <!--Strings related to preferences-->
     <string name="preference_file_key">br.com.kosawalabs.apprecommendation.PREFERENCES_FILE</string>
 </resources>
