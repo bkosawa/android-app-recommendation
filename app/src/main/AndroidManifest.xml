@@ -32,7 +32,7 @@
                 android:value="br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".presentation.login.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

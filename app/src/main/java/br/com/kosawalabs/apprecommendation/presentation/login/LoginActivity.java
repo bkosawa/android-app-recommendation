@@ -1,4 +1,4 @@
-package br.com.kosawalabs.apprecommendation;
+package br.com.kosawalabs.apprecommendation.presentation.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.LoginDataRepository;
