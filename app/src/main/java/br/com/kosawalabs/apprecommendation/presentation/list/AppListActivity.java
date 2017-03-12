@@ -32,6 +32,7 @@ import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION
 
 public class AppListActivity extends AppCompatActivity implements AppListView {
     private boolean mTwoPane;
+    private boolean isRecommended;
     private RecyclerView recyclerView;
     private AppListPresenterImpl presenter;
     private String token;
@@ -56,7 +57,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         final BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new MyBottomNavListenner());
+        bottomNavigationView.setOnNavigationItemSelectedListener(new MyBottomNavListener());
 
         recyclerView = (RecyclerView) findViewById(R.id.app_list);
         assert recyclerView != null;
@@ -94,7 +95,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.fetchFirstPage();
+        refreshList();
     }
 
     @Override
@@ -121,6 +122,24 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     @Override
     public int getFirstVisibleItemPosition() {
         return layoutManager.findFirstVisibleItemPosition();
+    }
+
+    private void refreshList() {
+        if (presenter.shouldLoadMore()) {
+            if (!isRecommended) {
+                presenter.fetchFirstPage();
+            } else {
+                presenter.fetchRecommendedFirstPage();
+            }
+        }
+    }
+
+    private void loadMore() {
+        if (!isRecommended) {
+            presenter.fetchNextPage();
+        } else {
+            presenter.fetchRecommendedNextPage();
+        }
     }
 
     public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
@@ -184,6 +203,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
             public final View mView;
             public final TextView mIdView;
             public final TextView mContentView;
+
             public App mItem;
 
             public ViewHolder(View view) {
@@ -198,9 +218,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
                 return super.toString() + " '" + mContentView.getText() + "'";
             }
         }
+
     }
 
     private class AppListOnScrollListener extends RecyclerView.OnScrollListener {
+
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
@@ -212,26 +234,29 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
             if (presenter.shouldLoadMore()) {
                 if (presenter.listIsAtTheEnd()) {
-                    presenter.fetchNextPage();
+                    loadMore();
                 }
             }
         }
+
     }
 
-    private static class MyBottomNavListenner implements BottomNavigationView.OnNavigationItemSelectedListener {
+    private class MyBottomNavListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_list:
-
+                    isRecommended = false;
                     break;
                 case R.id.action_list_recommended:
-
+                    isRecommended = true;
                     break;
                 default:
                     return false;
             }
+            refreshList();
             return true;
         }
+
     }
 }

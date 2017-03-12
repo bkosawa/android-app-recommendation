@@ -9,4 +9,8 @@ public interface AppListPresenter {
     boolean shouldLoadMore();
 
     boolean listIsAtTheEnd();
+
+    void fetchRecommendedFirstPage();
+
+    void fetchRecommendedNextPage();
 }

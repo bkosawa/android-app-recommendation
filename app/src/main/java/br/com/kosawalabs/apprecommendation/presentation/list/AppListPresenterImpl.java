@@ -80,4 +80,48 @@ public class AppListPresenterImpl implements AppListPresenter {
                 && firstVisibleItemPosition >= 0
                 && totalItemCount >= PAGE_SIZE;
     }
+
+    @Override
+    public void fetchRecommendedFirstPage() {
+        isLoading = true;
+        repository.getRecommendedApps(0L, PAGE_SIZE, new DataCallback<List<App>>() {
+            @Override
+            public void onSuccess(List<App> result) {
+                isLoading = false;
+                if (result.size() < PAGE_SIZE) {
+                    isLastPage = true;
+                }
+                current = result.size();
+                view.showApps(result);
+            }
+
+            @Override
+            public void onError(DataError error) {
+                isLoading = false;
+                isLastPage = true;
+            }
+        });
+    }
+
+    @Override
+    public void fetchRecommendedNextPage() {
+        isLoading = true;
+        repository.getRecommendedApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
+            @Override
+            public void onSuccess(List<App> result) {
+                isLoading = false;
+                if (result.size() < PAGE_SIZE) {
+                    isLastPage = true;
+                }
+                current += result.size();
+                view.showMoreApps(result);
+            }
+
+            @Override
+            public void onError(DataError error) {
+                isLoading = false;
+                isLastPage = true;
+            }
+        });
+    }
 }
