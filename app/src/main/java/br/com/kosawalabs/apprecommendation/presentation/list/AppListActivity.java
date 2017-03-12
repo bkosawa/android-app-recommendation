@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.kosawalabs.apprecommendation.AppDetailActivity;
-import br.com.kosawalabs.apprecommendation.AppDetailFragment;
+import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
+import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
 import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;

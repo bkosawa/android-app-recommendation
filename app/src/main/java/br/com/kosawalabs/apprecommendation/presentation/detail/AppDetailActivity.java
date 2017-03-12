@@ -1,4 +1,4 @@
-package br.com.kosawalabs.apprecommendation;
+package br.com.kosawalabs.apprecommendation.presentation.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity;
 
 import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;

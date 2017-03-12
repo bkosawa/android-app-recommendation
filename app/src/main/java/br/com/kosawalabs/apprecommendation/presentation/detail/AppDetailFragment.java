@@ -1,4 +1,4 @@
-package br.com.kosawalabs.apprecommendation;
+package br.com.kosawalabs.apprecommendation.presentation.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;

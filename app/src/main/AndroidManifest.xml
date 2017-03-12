@@ -23,7 +23,7 @@
 
         </activity>
         <activity
-            android:name=".AppDetailActivity"
+            android:name=".presentation.detail.AppDetailActivity"
             android:label="@string/title_app_detail"
             android:parentActivityName=".presentation.list.AppListActivity"
             android:theme="@style/AppTheme.NoActionBar">
