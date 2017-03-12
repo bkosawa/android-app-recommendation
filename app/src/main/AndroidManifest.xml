@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.AppListActivity"
+            android:name=".presentation.list.AppListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -25,11 +25,11 @@
         <activity
             android:name=".AppDetailActivity"
             android:label="@string/title_app_detail"
-            android:parentActivityName=".presentation.AppListActivity"
+            android:parentActivityName=".presentation.list.AppListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.kosawalabs.apprecommendation.presentation.AppListActivity" />
+                android:value="br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity" />
         </activity>
         <activity
             android:name=".LoginActivity"

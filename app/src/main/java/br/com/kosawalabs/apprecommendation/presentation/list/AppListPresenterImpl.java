@@ -1,4 +1,4 @@
-package br.com.kosawalabs.apprecommendation.presentation;
+package br.com.kosawalabs.apprecommendation.presentation.list;
 
 
 import java.util.List;

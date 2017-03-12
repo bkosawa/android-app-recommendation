@@ -23,7 +23,7 @@ import br.com.kosawalabs.apprecommendation.data.TokenDataRepository;
 import br.com.kosawalabs.apprecommendation.data.disk.TokenDiskRepository;
 import br.com.kosawalabs.apprecommendation.data.network.LoginNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.SessionToken;
-import br.com.kosawalabs.apprecommendation.presentation.AppListActivity;
+import br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

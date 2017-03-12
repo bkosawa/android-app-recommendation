@@ -1,4 +1,4 @@
-package br.com.kosawalabs.apprecommendation.presentation;
+package br.com.kosawalabs.apprecommendation.presentation.list;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +13,11 @@ import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.presentation.list.AppListPresenter;
+import br.com.kosawalabs.apprecommendation.presentation.list.AppListPresenterImpl;
+import br.com.kosawalabs.apprecommendation.presentation.list.AppListView;
 
-import static br.com.kosawalabs.apprecommendation.presentation.AppListPresenterImpl.PAGE_SIZE;
+import static br.com.kosawalabs.apprecommendation.presentation.list.AppListPresenterImpl.PAGE_SIZE;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
