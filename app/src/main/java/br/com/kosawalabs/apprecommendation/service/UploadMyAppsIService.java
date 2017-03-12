@@ -3,11 +3,18 @@ package br.com.kosawalabs.apprecommendation.service;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.util.Log;
+
+import java.util.List;
+
+import br.com.kosawalabs.apprecommendation.R;
 
 public class UploadMyAppsIService extends IntentService {
-    private static final String ACTION_UPLOAD_APPS = "br.com.kosawalabs.apprecommendation.service.action.UPLOAD_APPS";
+    private static final String TAG = UploadMyAppsIService.class.getSimpleName();
 
-    private static final String EXTRA_PACKAGE_LIST = "br.com.kosawalabs.apprecommendation.service.extra.PARAM1";
+    private static final String ACTION_UPLOAD_APPS = "br.com.kosawalabs.apprecommendation.service.action.UPLOAD_APPS";
 
     public UploadMyAppsIService() {
         super("UploadMyAppsIService");
@@ -30,6 +37,21 @@ public class UploadMyAppsIService extends IntentService {
     }
 
     private void handleActionUploadMyApps() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        final PackageManager pm = getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+        int count = 0;
+        for (ApplicationInfo packageInfo : packages) {
+            if (isNotInBlackList(packageInfo)) {
+                count++;
+                Log.d(TAG, "Installed package :" + packageInfo.packageName);
+            }
+        }
+        Log.d(TAG, getString(R.string.toast_packages_found, count));
+    }
+
+    private boolean isNotInBlackList(ApplicationInfo packageInfo) {
+        return !packageInfo.packageName.startsWith("android")
+                && !packageInfo.packageName.startsWith("com.android.");
     }
 }
