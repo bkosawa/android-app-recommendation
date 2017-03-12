@@ -24,6 +24,7 @@ import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment
 import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.service.UploadMyAppsIService;
 
 import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
@@ -75,7 +76,8 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.update_my_apps:
-                Toast.makeText(this, "Implement send packages", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_sending_packages, Toast.LENGTH_SHORT).show();
+                UploadMyAppsIService.startActionUploadApps(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

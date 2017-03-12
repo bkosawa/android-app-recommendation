@@ -1,11 +1,8 @@
 package br.com.kosawalabs.apprecommendation.service;
 
 import android.app.IntentService;
-import android.content.Intent;
 import android.content.Context;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.content.Intent;
 
 public class UploadMyAppsIService extends IntentService {
     private static final String ACTION_UPLOAD_APPS = "br.com.kosawalabs.apprecommendation.service.action.UPLOAD_APPS";
@@ -16,10 +13,9 @@ public class UploadMyAppsIService extends IntentService {
         super("UploadMyAppsIService");
     }
 
-    public static void startActionUploadApps(Context context, ArrayList<String> packages) {
+    public static void startActionUploadApps(Context context) {
         Intent intent = new Intent(context, UploadMyAppsIService.class);
         intent.setAction(ACTION_UPLOAD_APPS);
-        intent.putExtra(EXTRA_PACKAGE_LIST, packages);
         context.startService(intent);
     }
 
@@ -28,13 +24,12 @@ public class UploadMyAppsIService extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_UPLOAD_APPS.equals(action)) {
-                final ArrayList<String> param1 = intent.getStringArrayListExtra(EXTRA_PACKAGE_LIST);
-                handleActionUploadMyApps(param1);
+                handleActionUploadMyApps();
             }
         }
     }
 
-    private void handleActionUploadMyApps(List<String> param1) {
+    private void handleActionUploadMyApps() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }
