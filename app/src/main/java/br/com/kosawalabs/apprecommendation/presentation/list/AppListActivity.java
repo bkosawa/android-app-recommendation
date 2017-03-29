@@ -128,6 +128,14 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     }
 
     @Override
+    public void showError(String errorCause) {
+        progress.setVisibility(GONE);
+        listFrame.setVisibility(GONE);
+        errorFrame.setVisibility(VISIBLE);
+        errorDesc.setText(errorCause);
+    }
+
+    @Override
     public int getVisibleItemCount() {
         return layoutManager.getChildCount();
     }

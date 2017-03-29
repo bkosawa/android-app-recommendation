@@ -15,4 +15,6 @@ public interface AppListView {
     int getTotalItemCount();
 
     int getFirstVisibleItemPosition();
+
+    void showError(String errorCause);
 }
