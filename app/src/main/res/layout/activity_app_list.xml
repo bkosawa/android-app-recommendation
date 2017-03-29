@@ -35,11 +35,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
 
-        <include android:id="@+id/list_frame"
+        <include android:id="@+id/error_frame"
             android:visibility="gone"
             layout="@layout/activity_app_error"/>
 
-        <include android:id="@+id/error_frame"
+        <include android:id="@+id/list_frame"
             android:visibility="gone"
             layout="@layout/app_list" />
 

@@ -36,13 +36,12 @@ import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION
 public class AppListActivity extends AppCompatActivity implements AppListView {
     private boolean mTwoPane;
     private boolean isRecommended;
-    private RecyclerView recyclerView;
     private AppListPresenterImpl presenter;
     private String token;
     private LinearLayoutManager layoutManager;
     private SimpleItemRecyclerViewAdapter listAdapter;
     private ProgressBar progress;
-    private View listFrame;
+    private RecyclerView listFrame;
     private View errorFrame;
     private TextView errorDesc;
 
@@ -66,19 +65,18 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new MyBottomNavListener());
 
-        recyclerView = (RecyclerView) findViewById(R.id.app_list);
-        assert recyclerView != null;
+        listFrame = (RecyclerView) findViewById(R.id.list_frame);
+        assert listFrame != null;
 
         layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addOnScrollListener(new AppListOnScrollListener());
+        listFrame.setLayoutManager(layoutManager);
+        listFrame.addOnScrollListener(new AppListOnScrollListener());
 
         if (findViewById(R.id.app_detail_container) != null) {
             mTwoPane = true;
         }
 
         progress = (ProgressBar) findViewById(R.id.progress_bar);
-        listFrame = findViewById(R.id.list_frame);
         errorFrame = findViewById(R.id.error_frame);
         errorDesc = (TextView) findViewById(R.id.list_error_description);
 
@@ -116,7 +114,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         errorFrame.setVisibility(GONE);
         listFrame.setVisibility(VISIBLE);
         listAdapter = new SimpleItemRecyclerViewAdapter(apps);
-        recyclerView.setAdapter(listAdapter);
+        listFrame.setAdapter(listAdapter);
     }
 
     @Override

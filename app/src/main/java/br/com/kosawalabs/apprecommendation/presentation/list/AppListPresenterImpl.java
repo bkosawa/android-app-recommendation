@@ -40,6 +40,7 @@ public class AppListPresenterImpl implements AppListPresenter {
             public void onError(DataError error) {
                 isLoading = false;
                 isLastPage = true;
+                view.showError(error.getCause());
             }
         });
     }
@@ -99,6 +100,7 @@ public class AppListPresenterImpl implements AppListPresenter {
             public void onError(DataError error) {
                 isLoading = false;
                 isLastPage = true;
+                view.showError(error.getCause());
             }
         });
     }
