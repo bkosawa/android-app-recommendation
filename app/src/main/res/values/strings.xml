@@ -10,6 +10,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
+    <string name="error_title">An error has happened</string>
     <string name="update_my_apps">Upload my apps</string>
     <string name="toast_sending_packages">Sending installed apps</string>
     <string name="toast_packages_found">%d packages were found</string>
