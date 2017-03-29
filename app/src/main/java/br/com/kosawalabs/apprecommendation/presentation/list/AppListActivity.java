@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
 import br.com.kosawalabs.apprecommendation.service.UploadMyAppsIService;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
 public class AppListActivity extends AppCompatActivity implements AppListView {
@@ -38,6 +41,10 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     private String token;
     private LinearLayoutManager layoutManager;
     private SimpleItemRecyclerViewAdapter listAdapter;
+    private ProgressBar progress;
+    private View listFrame;
+    private View errorFrame;
+    private TextView errorDesc;
 
     public static void start(Activity activity, String token) {
         Intent intent = new Intent(activity, AppListActivity.class);
@@ -70,6 +77,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
             mTwoPane = true;
         }
 
+        progress = (ProgressBar) findViewById(R.id.progress_bar);
+        listFrame = findViewById(R.id.list_frame);
+        errorFrame = findViewById(R.id.error_frame);
+        errorDesc = (TextView) findViewById(R.id.list_error_description);
+
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
         presenter = new AppListPresenterImpl(this, new AppNetworkRepository(token));
     }
@@ -100,12 +112,18 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
     @Override
     public void showApps(List<App> apps) {
+        progress.setVisibility(GONE);
+        errorFrame.setVisibility(GONE);
+        listFrame.setVisibility(VISIBLE);
         listAdapter = new SimpleItemRecyclerViewAdapter(apps);
         recyclerView.setAdapter(listAdapter);
     }
 
     @Override
     public void showMoreApps(List<App> apps) {
+        progress.setVisibility(GONE);
+        errorFrame.setVisibility(GONE);
+        listFrame.setVisibility(VISIBLE);
         listAdapter.setApps(apps);
     }
 
