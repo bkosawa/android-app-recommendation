@@ -38,9 +38,7 @@ public class AppListPresenterImpl implements AppListPresenter {
 
             @Override
             public void onError(DataError error) {
-                isLoading = false;
-                isLastPage = true;
-                view.showError(error.getCause());
+                callShowError(error);
             }
         });
     }
@@ -61,8 +59,7 @@ public class AppListPresenterImpl implements AppListPresenter {
 
             @Override
             public void onError(DataError error) {
-                isLoading = false;
-                isLastPage = true;
+                callShowError(error);
             }
         });
     }
@@ -98,9 +95,7 @@ public class AppListPresenterImpl implements AppListPresenter {
 
             @Override
             public void onError(DataError error) {
-                isLoading = false;
-                isLastPage = true;
-                view.showError(error.getCause());
+                callShowError(error);
             }
         });
     }
@@ -121,10 +116,14 @@ public class AppListPresenterImpl implements AppListPresenter {
 
             @Override
             public void onError(DataError error) {
-                isLoading = false;
-                isLastPage = true;
-                view.showError(error.getCause());
+                callShowError(error);
             }
         });
+    }
+
+    private void callShowError(DataError error) {
+        isLoading = false;
+        isLastPage = true;
+        view.showError(error.getCause());
     }
 }
