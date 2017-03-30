@@ -55,16 +55,7 @@ public class AppListPresenterImpl implements AppListPresenter {
         repository.getApps(offset, limit, new DataCallback<List<App>>() {
             @Override
             public void onSuccess(List<App> result) {
-                isLoading = false;
-                if (result.size() < PAGE_SIZE) {
-                    isLastPage = true;
-                }
-                current += result.size();
-                if (isFirstPage) {
-                    view.showApps(result);
-                } else {
-                    view.showMoreApps(result);
-                }
+                callShowApps(result, isFirstPage);
             }
 
             @Override
@@ -79,16 +70,7 @@ public class AppListPresenterImpl implements AppListPresenter {
         repository.getRecommendedApps(offset, limit, new DataCallback<List<App>>() {
             @Override
             public void onSuccess(List<App> result) {
-                isLoading = false;
-                if (result.size() < PAGE_SIZE) {
-                    isLastPage = true;
-                }
-                current += result.size();
-                if (isFirstPage) {
-                    view.showApps(result);
-                } else {
-                    view.showMoreApps(result);
-                }
+                callShowApps(result, isFirstPage);
             }
 
             @Override
@@ -96,6 +78,19 @@ public class AppListPresenterImpl implements AppListPresenter {
                 callShowError(error);
             }
         });
+    }
+
+    private void callShowApps(List<App> result, boolean isFirstPage) {
+        isLoading = false;
+        if (result.size() < PAGE_SIZE) {
+            isLastPage = true;
+        }
+        current += result.size();
+        if (isFirstPage) {
+            view.showApps(result);
+        } else {
+            view.showMoreApps(result);
+        }
     }
 
     private void callShowError(DataError error) {
