@@ -13,9 +13,6 @@ import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
-import br.com.kosawalabs.apprecommendation.presentation.list.AppListPresenter;
-import br.com.kosawalabs.apprecommendation.presentation.list.AppListPresenterImpl;
-import br.com.kosawalabs.apprecommendation.presentation.list.AppListView;
 
 import static br.com.kosawalabs.apprecommendation.presentation.list.AppListPresenterImpl.PAGE_SIZE;
 import static junit.framework.Assert.assertFalse;

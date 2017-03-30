@@ -10,11 +10,5 @@ public interface AppListView {
 
     void showMoreApps(List<App> apps);
 
-    int getVisibleItemCount();
-
-    int getTotalItemCount();
-
-    int getFirstVisibleItemPosition();
-
     void showError(String errorCause);
 }

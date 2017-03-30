@@ -133,21 +133,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         errorDesc.setText(errorCause);
     }
 
-    @Override
-    public int getVisibleItemCount() {
-        return layoutManager.getChildCount();
-    }
-
-    @Override
-    public int getTotalItemCount() {
-        return layoutManager.getItemCount();
-    }
-
-    @Override
-    public int getFirstVisibleItemPosition() {
-        return layoutManager.findFirstVisibleItemPosition();
-    }
-
     private void refreshList() {
         if (presenter.shouldLoadMore()) {
             if (!isRecommended) {
@@ -164,6 +149,28 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         } else {
             presenter.fetchRecommendedNextPage();
         }
+    }
+
+    private boolean listIsAtTheEnd() {
+        int visibleItemCount = getVisibleItemCount();
+        int totalItemCount = getTotalItemCount();
+        int firstVisibleItemPosition = getFirstVisibleItemPosition();
+
+        return (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                && firstVisibleItemPosition >= 0
+                && totalItemCount >= presenter.getPageSize();
+    }
+
+    private int getVisibleItemCount() {
+        return layoutManager.getChildCount();
+    }
+
+    private int getTotalItemCount() {
+        return layoutManager.getItemCount();
+    }
+
+    private int getFirstVisibleItemPosition() {
+        return layoutManager.findFirstVisibleItemPosition();
     }
 
     public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
@@ -257,7 +264,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
             super.onScrolled(recyclerView, dx, dy);
 
             if (presenter.shouldLoadMore()) {
-                if (presenter.listIsAtTheEnd()) {
+                if (listIsAtTheEnd()) {
                     loadMore();
                 }
             }
