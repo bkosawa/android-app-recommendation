@@ -26,12 +26,12 @@ public class AppListPresenterImpl implements AppListPresenter {
     @Override
     public void fetchFirstPage() {
         current = 0;
-        callFetchApps(0L, PAGE_SIZE, FIRST_PAGE);
+        callFetchApps(FIRST_PAGE);
     }
 
     @Override
     public void fetchNextPage() {
-        callFetchApps(current, PAGE_SIZE, NEXT_PAGE);
+        callFetchApps(NEXT_PAGE);
     }
 
     @Override
@@ -42,17 +42,17 @@ public class AppListPresenterImpl implements AppListPresenter {
     @Override
     public void fetchRecommendedFirstPage() {
         current = 0;
-        callFetchRecommended(0L, PAGE_SIZE, FIRST_PAGE);
+        callFetchRecommended(FIRST_PAGE);
     }
 
     @Override
     public void fetchRecommendedNextPage() {
-        callFetchRecommended(current, PAGE_SIZE, NEXT_PAGE);
+        callFetchRecommended(NEXT_PAGE);
     }
 
-    private void callFetchApps(long offset, long limit, final boolean isFirstPage) {
+    private void callFetchApps(final boolean isFirstPage) {
         isLoading = true;
-        repository.getApps(offset, limit, new DataCallback<List<App>>() {
+        repository.getApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
             @Override
             public void onSuccess(List<App> result) {
                 callShowApps(result, isFirstPage);
@@ -65,9 +65,9 @@ public class AppListPresenterImpl implements AppListPresenter {
         });
     }
 
-    private void callFetchRecommended(long offset, long limit, final boolean isFirstPage) {
+    private void callFetchRecommended(final boolean isFirstPage) {
         isLoading = true;
-        repository.getRecommendedApps(offset, limit, new DataCallback<List<App>>() {
+        repository.getRecommendedApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
             @Override
             public void onSuccess(List<App> result) {
                 callShowApps(result, isFirstPage);
