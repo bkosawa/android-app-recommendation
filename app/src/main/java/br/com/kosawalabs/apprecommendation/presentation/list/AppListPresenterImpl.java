@@ -8,6 +8,8 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
+import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
+
 public class AppListPresenterImpl implements AppListPresenter {
     protected static final long PAGE_SIZE = 25L;
     private static final boolean FIRST_PAGE = true;
@@ -96,7 +98,14 @@ public class AppListPresenterImpl implements AppListPresenter {
     private void callShowError(DataError error) {
         isLoading = false;
         isLastPage = true;
-        view.showError(error.getCause());
+        switch (error.getErrorCode()) {
+            case NOT_FOUND:
+                view.showSendDataButton();
+                break;
+            default:
+                view.showError(error.getCause());
+                break;
+        }
     }
 
     public long getPageSize() {
