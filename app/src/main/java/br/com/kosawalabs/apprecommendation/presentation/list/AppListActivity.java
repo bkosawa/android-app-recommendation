@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
-public class AppListActivity extends AppCompatActivity implements AppListView {
+public class AppListActivity extends AppCompatActivity implements AppListView, View.OnClickListener {
     private boolean mTwoPane;
     private boolean isRecommended;
     private AppListPresenterImpl presenter;
@@ -43,8 +44,9 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     private ProgressBar progress;
     private RecyclerView listFrame;
     private View errorFrame;
-    private View sendDataFrame;
     private TextView errorDesc;
+    private View sendDataFrame;
+    private Button sendDataButton;
 
     public static void start(Activity activity, String token) {
         Intent intent = new Intent(activity, AppListActivity.class);
@@ -79,8 +81,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
         progress = (ProgressBar) findViewById(R.id.progress_bar);
         errorFrame = findViewById(R.id.error_frame);
-        sendDataFrame = findViewById(R.id.send_data_frame);
         errorDesc = (TextView) findViewById(R.id.list_error_description);
+        sendDataFrame = findViewById(R.id.send_data_frame);
+        sendDataButton = (Button) findViewById(R.id.send_data_button);
+
+        sendDataButton.setOnClickListener(this);
 
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
         presenter = new AppListPresenterImpl(this, new AppNetworkRepository(token));
@@ -96,8 +101,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.update_my_apps:
-                Toast.makeText(this, R.string.toast_sending_packages, Toast.LENGTH_SHORT).show();
-                UploadMyAppsIService.startActionUploadApps(this);
+                sendMyAppList();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -146,6 +150,15 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         sendDataFrame.setVisibility(VISIBLE);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.send_data_button:
+                sendMyAppList();
+                return;
+        }
+    }
+
     private void refreshList() {
         if (presenter.shouldLoadMore()) {
             if (!isRecommended) {
@@ -184,6 +197,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
     private int getFirstVisibleItemPosition() {
         return layoutManager.findFirstVisibleItemPosition();
+    }
+
+    private void sendMyAppList() {
+        Toast.makeText(this, R.string.toast_sending_packages, Toast.LENGTH_SHORT).show();
+        UploadMyAppsIService.startActionUploadApps(this);
     }
 
     public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
