@@ -43,6 +43,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     private ProgressBar progress;
     private RecyclerView listFrame;
     private View errorFrame;
+    private View sendDataFrame;
     private TextView errorDesc;
 
     public static void start(Activity activity, String token) {
@@ -78,6 +79,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
 
         progress = (ProgressBar) findViewById(R.id.progress_bar);
         errorFrame = findViewById(R.id.error_frame);
+        sendDataFrame = findViewById(R.id.send_data_frame);
         errorDesc = (TextView) findViewById(R.id.list_error_description);
 
         token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
@@ -112,6 +114,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     public void showApps(List<App> apps) {
         progress.setVisibility(GONE);
         errorFrame.setVisibility(GONE);
+        sendDataFrame.setVisibility(GONE);
         listFrame.setVisibility(VISIBLE);
         listAdapter = new SimpleItemRecyclerViewAdapter(apps);
         listFrame.setAdapter(listAdapter);
@@ -121,6 +124,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     public void showMoreApps(List<App> apps) {
         progress.setVisibility(GONE);
         errorFrame.setVisibility(GONE);
+        sendDataFrame.setVisibility(GONE);
         listFrame.setVisibility(VISIBLE);
         listAdapter.setApps(apps);
     }
@@ -129,13 +133,17 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
     public void showError(String errorCause) {
         progress.setVisibility(GONE);
         listFrame.setVisibility(GONE);
+        sendDataFrame.setVisibility(GONE);
         errorFrame.setVisibility(VISIBLE);
         errorDesc.setText(errorCause);
     }
 
     @Override
     public void showSendDataButton() {
-
+        progress.setVisibility(GONE);
+        listFrame.setVisibility(GONE);
+        errorFrame.setVisibility(GONE);
+        sendDataFrame.setVisibility(VISIBLE);
     }
 
     private void refreshList() {
