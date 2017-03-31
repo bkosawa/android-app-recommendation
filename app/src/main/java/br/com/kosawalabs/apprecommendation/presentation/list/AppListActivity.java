@@ -133,6 +133,11 @@ public class AppListActivity extends AppCompatActivity implements AppListView {
         errorDesc.setText(errorCause);
     }
 
+    @Override
+    public void showSendDataButton() {
+
+    }
+
     private void refreshList() {
         if (presenter.shouldLoadMore()) {
             if (!isRecommended) {

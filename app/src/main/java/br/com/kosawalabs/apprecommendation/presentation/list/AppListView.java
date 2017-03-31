@@ -11,4 +11,6 @@ public interface AppListView {
     void showMoreApps(List<App> apps);
 
     void showError(String errorCause);
+
+    void showSendDataButton();
 }
