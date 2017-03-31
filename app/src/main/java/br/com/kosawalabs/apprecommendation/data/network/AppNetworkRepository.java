@@ -14,6 +14,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
+
 public class AppNetworkRepository implements AppDataRepository {
     private AppRecommendationClient client;
 
@@ -91,6 +93,9 @@ public class AppNetworkRepository implements AppDataRepository {
                         } else {
                             callback.onError(new DataError("Empty Body"));
                         }
+                        break;
+                    case NOT_FOUND:
+                        callback.onError(new DataError("Error Status: " + responseCode, NOT_FOUND));
                         break;
                     default:
                         callback.onError(new DataError("Error Status: " + responseCode));
