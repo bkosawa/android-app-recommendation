@@ -39,6 +39,10 @@
             android:visibility="gone"
             layout="@layout/activity_app_error"/>
 
+        <include android:id="@+id/send_data_frame"
+            android:visibility="gone"
+            layout="@layout/activity_app_send_data"/>
+
         <include android:id="@+id/list_frame"
             android:visibility="gone"
             layout="@layout/app_list" />
