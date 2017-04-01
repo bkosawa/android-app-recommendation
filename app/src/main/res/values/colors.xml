@@ -11,4 +11,5 @@
 
     <color name="error_color">#BB2211</color>
     <color name="no_content_color">@color/accent</color>
+    <color name="list_background">#EEEEEE</color>
 </resources>
