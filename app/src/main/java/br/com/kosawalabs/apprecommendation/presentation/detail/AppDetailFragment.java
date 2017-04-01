@@ -59,6 +59,7 @@ public class AppDetailFragment extends Fragment {
                     setIcon();
                     setCategory();
                     setDeveloper();
+                    setDownloadButton();
                 }
 
                 @Override
@@ -103,5 +104,25 @@ public class AppDetailFragment extends Fragment {
 
     private void setDeveloper() {
         developer.setText(mItem.getDeveloperName());
+    }
+
+    private void setDownloadButton() {
+        downloadButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(getGooglePlayIntent(mItem.getPackageName()));
+            }
+        });
+    }
+
+    @NonNull
+    private Intent getGooglePlayIntent(String packageName) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+        return intent.resolveActivityInfo(getActivity().getPackageManager(), 0) != null ? intent : getGooglePlayWebIntent(packageName);
+    }
+
+    @NonNull
+    public Intent getGooglePlayWebIntent(String packageName) {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + packageName));
     }
 }
