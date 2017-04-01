@@ -1,13 +1,18 @@
 package br.com.kosawalabs.apprecommendation.presentation.detail;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.kosawalabs.apprecommendation.R;
@@ -16,6 +21,7 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
 
 import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
@@ -24,6 +30,10 @@ public class AppDetailFragment extends Fragment {
 
     private CollapsingToolbarLayout appBarLayout;
     private TextView detail;
+    private ImageView icon;
+    private TextView category;
+    private TextView developer;
+    private Button downloadButtom;
 
     private AppDataRepository repository;
 
@@ -46,6 +56,9 @@ public class AppDetailFragment extends Fragment {
                     mItem = result;
                     setTitle();
                     setDescription();
+                    setIcon();
+                    setCategory();
+                    setDeveloper();
                 }
 
                 @Override
@@ -63,6 +76,10 @@ public class AppDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.app_detail, container, false);
         detail = (TextView) rootView.findViewById(R.id.app_detail);
+        icon = (ImageView) rootView.findViewById(R.id.detail_icon);
+        category = (TextView) rootView.findViewById(R.id.detail_category);
+        developer = (TextView) rootView.findViewById(R.id.detail_developer);
+        downloadButtom = (Button) rootView.findViewById(R.id.detail_download_button);
         return rootView;
     }
 
@@ -74,5 +91,17 @@ public class AppDetailFragment extends Fragment {
 
     private void setDescription() {
         detail.setText(mItem.getName());
+    }
+
+    private void setIcon() {
+        ImageLoaderFacade.loadImage(this, mItem.getIconUrl(), icon);
+    }
+
+    private void setCategory() {
+        category.setText(mItem.getCategoryKey());
+    }
+
+    private void setDeveloper() {
+        developer.setText(mItem.getDeveloperName());
     }
 }
