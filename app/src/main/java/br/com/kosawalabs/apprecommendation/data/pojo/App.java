@@ -16,12 +16,24 @@ public class App {
     @SerializedName("icon_url")
     @Expose
     private String iconUrl;
+    @SerializedName("description")
+    @Expose
+    private String description;
     @SerializedName("category_key")
     @Expose
     private String categoryKey;
+    @SerializedName("category_name")
+    @Expose
+    private String categoryName;
     @SerializedName("developer_name")
     @Expose
     private String developerName;
+    @SerializedName("version")
+    @Expose
+    private String version;
+    @SerializedName("classification")
+    @Expose
+    private String classification;
 
     public Integer getId() {
         return id;
@@ -39,11 +51,27 @@ public class App {
         return iconUrl;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getCategoryKey() {
         return categoryKey;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
     public String getDeveloperName() {
         return developerName;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getClassification() {
+        return classification;
     }
 }
