@@ -47,7 +47,6 @@
             android:visibility="gone" />
 
         <include
-            android:id="@+id/list_frame"
             layout="@layout/app_list"
             android:visibility="gone" />
 

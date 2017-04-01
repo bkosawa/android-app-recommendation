@@ -70,7 +70,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new MyBottomNavListener());
 
-        listFrame = (RecyclerView) findViewById(R.id.list_frame);
+        listFrame = (RecyclerView) findViewById(R.id.app_list);
         assert listFrame != null;
 
         layoutManager = new LinearLayoutManager(this);
