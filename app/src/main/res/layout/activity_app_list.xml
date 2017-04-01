@@ -47,8 +47,7 @@
             android:visibility="gone" />
 
         <include
-            layout="@layout/app_list"
-            android:visibility="gone" />
+            layout="@layout/app_list" />
 
     </FrameLayout>
 
