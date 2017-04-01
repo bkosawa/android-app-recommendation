@@ -91,7 +91,7 @@ public class AppDetailFragment extends Fragment {
     }
 
     private void setDescription() {
-        detail.setText(mItem.getName());
+        detail.setText(mItem.getDescription());
     }
 
     private void setIcon() {
