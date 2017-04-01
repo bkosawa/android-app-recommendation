@@ -17,6 +17,8 @@
     <string name="toast_sending_packages">Sending installed apps</string>
     <string name="toast_packages_found">%d packages were found</string>
 
+    <string name="download">DOWNLOAD</string>
+
     <!--Strings related to preferences-->
     <string name="preference_file_key">br.com.kosawalabs.apprecommendation.PREFERENCES_FILE</string>
 </resources>

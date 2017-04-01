@@ -1,9 +1,62 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/app_detail"
-    style="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context="br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <ImageView
+            android:id="@+id/detail_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detail_developer"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="KOSAWA LABS" />
+
+            <TextView
+                android:id="@+id/detail_category"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="TOOL" />
+
+            <Button
+                android:id="@+id/detail_download_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@color/colorPrimary"
+                android:text="@string/download" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/app_detail"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:textIsSelectable="true"
+        tools:text="Lorem ipsum dolor sit amet, ne has dicat vulputate. Cum at stet probo, vis mundi iudicabit at. Ea has quando aliquando theophrastus. Soleat latine legendos ut vim, noster torquatos repudiandae cu cum. Sit omnis temporibus conclusionemque in. Per cu alia necessitatibus, quo quod integre conceptam ut, id eros graeci convenire per. Cum error delenit interesset ea, an vis habemus erroribus, ad pro labore petentium constituto." />
+
+</LinearLayout>
