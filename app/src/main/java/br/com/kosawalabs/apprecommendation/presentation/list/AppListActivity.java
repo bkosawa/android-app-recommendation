@@ -227,7 +227,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = this.apps.get(position);
-            holder.mIdView.setText(String.valueOf(this.apps.get(position).getId()));
             holder.mContentView.setText(this.apps.get(position).getName());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -263,7 +262,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-            public final TextView mIdView;
             public final TextView mContentView;
 
             public App mItem;
@@ -271,8 +269,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mContentView = (TextView) view.findViewById(R.id.list_name);
             }
 
             @Override
