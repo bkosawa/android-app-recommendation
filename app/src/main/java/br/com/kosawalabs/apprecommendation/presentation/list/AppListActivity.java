@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
 import br.com.kosawalabs.apprecommendation.service.UploadMyAppsIService;
+import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -226,8 +228,12 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mItem = this.apps.get(position);
-            holder.mContentView.setText(this.apps.get(position).getName());
+            App app = this.apps.get(position);
+            holder.mItem = app;
+            ImageLoaderFacade.loadImage(AppListActivity.this, app.getIconUrl(), holder.mIcon);
+            holder.mName.setText(app.getName());
+            holder.mDeveloper.setText(String.valueOf(app.getDeveloperName()));
+            holder.mCategory.setText(String.valueOf(app.getCategoryKey()));
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -262,19 +268,25 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-            public final TextView mContentView;
+            private final ImageView mIcon;
+            public final TextView mName;
+            private final TextView mDeveloper;
+            private final TextView mCategory;
 
             public App mItem;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mContentView = (TextView) view.findViewById(R.id.list_name);
+                mIcon = (ImageView) view.findViewById(R.id.list_icon);
+                mName = (TextView) view.findViewById(R.id.list_name);
+                mDeveloper = (TextView) view.findViewById(R.id.list_developer);
+                mCategory = (TextView) view.findViewById(R.id.list_category);
             }
 
             @Override
             public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
+                return super.toString() + " '" + mName.getText() + "'";
             }
         }
 
