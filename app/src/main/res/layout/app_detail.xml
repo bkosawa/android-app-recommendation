@@ -44,9 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:background="@color/primary"
                 android:text="@string/download"
-                android:textColor="@color/primary_text" />
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/MyButton"/>
         </LinearLayout>
 
     </LinearLayout>

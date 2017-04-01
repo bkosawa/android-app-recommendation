@@ -38,8 +38,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
-        android:background="@color/primary"
-        android:text="@string/update_my_apps"
-        android:textColor="@color/primary_text" />
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/MyButton"
+        android:text="@string/update_my_apps" />
 
 </LinearLayout>
