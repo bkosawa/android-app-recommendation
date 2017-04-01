@@ -6,8 +6,8 @@
     android:name="br.com.kosawalabs.apprecommendation.AppListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity"
     tools:listitem="@layout/app_list_content" />
