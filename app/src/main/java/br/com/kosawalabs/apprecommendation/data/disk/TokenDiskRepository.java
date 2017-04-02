@@ -28,4 +28,12 @@ public class TokenDiskRepository implements TokenDataRepository {
         editor.putString(SESSION_TOKEN, token);
         editor.apply();
     }
+
+    @Override
+    public void removeToken() {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove(SESSION_TOKEN);
+        editor.apply();
+    }
 }

@@ -4,4 +4,6 @@ public interface TokenDataRepository {
     String getToken();
 
     void putToken(String token);
+
+    void removeToken();
 }
