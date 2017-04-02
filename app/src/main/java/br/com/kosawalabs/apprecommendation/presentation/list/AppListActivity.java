@@ -161,6 +161,14 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     }
 
     @Override
+    public void showLoading() {
+        progress.setVisibility(VISIBLE);
+        listFrame.setVisibility(GONE);
+        errorFrame.setVisibility(GONE);
+        sendDataFrame.setVisibility(GONE);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_data_button:

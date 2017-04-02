@@ -15,4 +15,6 @@ public interface AppListView {
     void showSendDataButton();
 
     void showLogin();
+
+    void showLoading();
 }

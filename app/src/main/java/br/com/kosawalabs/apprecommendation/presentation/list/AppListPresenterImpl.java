@@ -30,6 +30,7 @@ public class AppListPresenterImpl implements AppListPresenter {
     public void fetchFirstPage() {
         current = 0;
         isLastPage = false;
+        view.showLoading();
         callFetchApps(FIRST_PAGE);
     }
 
@@ -47,6 +48,7 @@ public class AppListPresenterImpl implements AppListPresenter {
     public void fetchRecommendedFirstPage() {
         current = 0;
         isLastPage = false;
+        view.showLoading();
         callFetchRecommended(FIRST_PAGE);
     }
 
