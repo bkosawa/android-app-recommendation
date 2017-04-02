@@ -1,5 +1,7 @@
 package br.com.kosawalabs.apprecommendation.data.pojo;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -46,12 +48,14 @@ public class App {
         return packageName;
     }
 
+    @NonNull
     public String getName() {
-        return name;
+        return name != null ? name : "";
     }
 
+    @NonNull
     public String getIconUrl() {
-        return iconUrl;
+        return iconUrl != null ? iconUrl : "";
     }
 
     public String getDescription() {
@@ -62,12 +66,14 @@ public class App {
         return categoryKey;
     }
 
+    @NonNull
     public String getCategoryName() {
-        return categoryName;
+        return categoryName != null ? categoryName : "";
     }
 
+    @NonNull
     public String getDeveloperName() {
-        return developerName;
+        return developerName != null ? developerName : "";
     }
 
     public String getVersion() {
