@@ -246,8 +246,8 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             holder.mItem = app;
             ImageLoaderFacade.loadImage(AppListActivity.this, app.getIconUrl(), holder.mIcon);
             holder.mName.setText(app.getName());
-            holder.mDeveloper.setText(String.valueOf(app.getDeveloperName()));
-            holder.mCategory.setText(String.valueOf(app.getCategoryKey()));
+            holder.mDeveloper.setText(app.getDeveloperName().toUpperCase());
+            holder.mCategory.setText(app.getCategoryName().toUpperCase());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
