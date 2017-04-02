@@ -36,12 +36,9 @@ public class AppListPresenterImpl implements AppListPresenter {
 
     @Override
     public void fetchNextPage() {
-        callFetchApps(NEXT_PAGE);
-    }
-
-    @Override
-    public boolean shouldLoadMore() {
-        return !isLoading && !isLastPage;
+        if (shouldLoadMore()) {
+            callFetchApps(NEXT_PAGE);
+        }
     }
 
     @Override
@@ -54,42 +51,48 @@ public class AppListPresenterImpl implements AppListPresenter {
 
     @Override
     public void fetchRecommendedNextPage() {
-        callFetchRecommended(NEXT_PAGE);
+        if (shouldLoadMore()) {
+            callFetchRecommended(NEXT_PAGE);
+        }
     }
 
     private void callFetchApps(final boolean isFirstPage) {
-        isLoading = true;
-        repository.getApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
-            @Override
-            public void onSuccess(List<App> result) {
-                callShowApps(result, isFirstPage);
-            }
+        if (isNotLoading()) {
+            isLoading = true;
+            repository.getApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
+                @Override
+                public void onSuccess(List<App> result) {
+                    callShowApps(result, isFirstPage);
+                }
 
-            @Override
-            public void onError(DataError error) {
-                callShowError(error);
-            }
-        });
+                @Override
+                public void onError(DataError error) {
+                    callShowError(error);
+                }
+            });
+        }
     }
 
     private void callFetchRecommended(final boolean isFirstPage) {
-        isLoading = true;
-        repository.getRecommendedApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
-            @Override
-            public void onSuccess(List<App> result) {
-                callShowApps(result, isFirstPage);
-            }
+        if (isNotLoading()) {
+            isLoading = true;
+            repository.getRecommendedApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
+                @Override
+                public void onSuccess(List<App> result) {
+                    callShowApps(result, isFirstPage);
+                }
 
-            @Override
-            public void onError(DataError error) {
-                callShowError(error);
-            }
-        });
+                @Override
+                public void onError(DataError error) {
+                    callShowError(error);
+                }
+            });
+        }
     }
 
     private void callShowApps(List<App> result, boolean isFirstPage) {
         isLoading = false;
-        if (result.size() < PAGE_SIZE) {
+        if (isResultLessThanAPage(result)) {
             isLastPage = true;
         }
         current += result.size();
@@ -116,7 +119,19 @@ public class AppListPresenterImpl implements AppListPresenter {
         }
     }
 
-    public long getPageSize() {
+    long getPageSize() {
         return PAGE_SIZE;
+    }
+
+    private boolean isNotLoading() {
+        return !isLoading;
+    }
+
+    boolean shouldLoadMore() {
+        return !isLoading && !isLastPage;
+    }
+
+    private boolean isResultLessThanAPage(List<App> result) {
+        return result.size() < PAGE_SIZE;
     }
 }

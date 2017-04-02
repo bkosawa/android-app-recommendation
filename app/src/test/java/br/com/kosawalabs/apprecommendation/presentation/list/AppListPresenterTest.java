@@ -80,14 +80,14 @@ public class AppListPresenterTest {
 
     @Test
     public void givenFetchFirstPageIsNotCalledYetItShouldBePossibleToLoadMore() {
-        assertTrue(presenter.shouldLoadMore());
+        assertTrue(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
     public void givenFetchFirstPageIsCalledAndGetAppsHasNotReturnItShouldNotBePossibleToLoadMore() {
         presenter.fetchFirstPage();
 
-        assertFalse(presenter.shouldLoadMore());
+        assertFalse(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class AppListPresenterTest {
 
         dataCallback.onSuccess(mockList);
 
-        assertTrue(presenter.shouldLoadMore());
+        assertTrue(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class AppListPresenterTest {
 
         dataCallback.onSuccess(mockList);
 
-        assertFalse(presenter.shouldLoadMore());
+        assertFalse(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class AppListPresenterTest {
 
         dataCallback.onError(new DataError("Error"));
 
-        assertFalse(presenter.shouldLoadMore());
+        assertFalse(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
@@ -184,7 +184,7 @@ public class AppListPresenterTest {
     public void givenFetchNextPageIsCalledAndGetAppsHasNotReturnItShouldNotBePossibleToLoadMore() {
         presenter.fetchNextPage();
 
-        assertFalse(presenter.shouldLoadMore());
+        assertFalse(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
@@ -199,7 +199,7 @@ public class AppListPresenterTest {
 
         dataCallback.onSuccess(mockList);
 
-        assertTrue(presenter.shouldLoadMore());
+        assertTrue(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
@@ -214,7 +214,7 @@ public class AppListPresenterTest {
 
         dataCallback.onSuccess(mockList);
 
-        assertFalse(presenter.shouldLoadMore());
+        assertFalse(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     @Test
@@ -227,7 +227,7 @@ public class AppListPresenterTest {
 
         dataCallback.onError(new DataError("Error"));
 
-        assertFalse(presenter.shouldLoadMore());
+        assertFalse(((AppListPresenterImpl) presenter).shouldLoadMore());
     }
 
     private List<App> getMockedAppList(int listSize) {

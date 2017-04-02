@@ -6,8 +6,6 @@ public interface AppListPresenter {
 
     void fetchNextPage();
 
-    boolean shouldLoadMore();
-
     void fetchRecommendedFirstPage();
 
     void fetchRecommendedNextPage();

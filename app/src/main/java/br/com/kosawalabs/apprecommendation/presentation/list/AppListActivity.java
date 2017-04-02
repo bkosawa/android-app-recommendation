@@ -178,12 +178,10 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     }
 
     private void refreshList() {
-        if (presenter.shouldLoadMore()) {
-            if (!isRecommended) {
-                presenter.fetchFirstPage();
-            } else {
-                presenter.fetchRecommendedFirstPage();
-            }
+        if (!isRecommended) {
+            presenter.fetchFirstPage();
+        } else {
+            presenter.fetchRecommendedFirstPage();
         }
     }
 
@@ -319,10 +317,8 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            if (presenter.shouldLoadMore()) {
-                if (listIsAtTheEnd()) {
-                    loadMore();
-                }
+            if (listIsAtTheEnd()) {
+                loadMore();
             }
         }
 
