@@ -29,6 +29,7 @@ import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
+import br.com.kosawalabs.apprecommendation.presentation.login.LoginActivity;
 import br.com.kosawalabs.apprecommendation.service.UploadMyAppsIService;
 import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
 
@@ -154,6 +155,9 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
     @Override
     public void showLogin() {
+        LoginActivity.startWithLogout(this);
+        Toast.makeText(getApplicationContext(), R.string.toast_logout, Toast.LENGTH_LONG).show();
+        finish();
     }
 
     @Override

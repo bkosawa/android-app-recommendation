@@ -16,6 +16,7 @@
     <string name="update_my_apps">Upload a list of my apps</string>
     <string name="toast_sending_packages">Sending installed apps</string>
     <string name="toast_packages_found">%d packages were found</string>
+    <string name="toast_logout">You\'ve been logged out</string>
 
     <string name="download">DOWNLOAD</string>
 
