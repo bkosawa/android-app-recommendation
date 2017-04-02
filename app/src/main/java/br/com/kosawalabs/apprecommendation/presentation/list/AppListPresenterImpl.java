@@ -8,6 +8,7 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
+import static br.com.kosawalabs.apprecommendation.data.DataError.FORBIDDEN;
 import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
 
 public class AppListPresenterImpl implements AppListPresenter {
@@ -101,6 +102,9 @@ public class AppListPresenterImpl implements AppListPresenter {
         switch (error.getErrorCode()) {
             case NOT_FOUND:
                 view.showSendDataButton();
+                break;
+            case FORBIDDEN:
+                view.showLogin();
                 break;
             default:
                 view.showError(error.getCause());
