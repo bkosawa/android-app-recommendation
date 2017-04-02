@@ -25,6 +25,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_navigation_height"
         android:background="@color/list_background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -46,8 +47,7 @@
             layout="@layout/activity_app_send_data"
             android:visibility="gone" />
 
-        <include
-            layout="@layout/app_list" />
+        <include layout="@layout/app_list" />
 
     </FrameLayout>
 
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:fitsSystemWindows="true"
+        android:background="@color/primary_dark"
         app:itemBackground="@color/primary_dark"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
