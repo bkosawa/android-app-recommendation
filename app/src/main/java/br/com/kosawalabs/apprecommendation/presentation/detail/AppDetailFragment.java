@@ -99,11 +99,11 @@ public class AppDetailFragment extends Fragment {
     }
 
     private void setCategory() {
-        category.setText(mItem.getCategoryKey());
+        category.setText(mItem.getCategoryName().toUpperCase());
     }
 
     private void setDeveloper() {
-        developer.setText(mItem.getDeveloperName());
+        developer.setText(mItem.getDeveloperName().toUpperCase());
     }
 
     private void setDownloadButton() {
