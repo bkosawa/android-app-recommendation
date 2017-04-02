@@ -31,9 +31,12 @@ public class App {
     @SerializedName("version")
     @Expose
     private String version;
-    @SerializedName("classification")
+    @SerializedName("content_rating")
     @Expose
-    private String classification;
+    private String contentRating;
+    @SerializedName("size")
+    @Expose
+    private String size;
 
     public Integer getId() {
         return id;
@@ -71,7 +74,11 @@ public class App {
         return version;
     }
 
-    public String getClassification() {
-        return classification;
+    public String getContentRating() {
+        return contentRating;
+    }
+
+    public String getSize() {
+        return size;
     }
 }
