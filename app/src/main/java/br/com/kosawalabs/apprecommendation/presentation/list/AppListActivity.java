@@ -153,6 +153,10 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     }
 
     @Override
+    public void showLogin() {
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_data_button:

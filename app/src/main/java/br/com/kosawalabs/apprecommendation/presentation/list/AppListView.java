@@ -13,4 +13,6 @@ public interface AppListView {
     void showError(String errorCause);
 
     void showSendDataButton();
+
+    void showLogin();
 }
