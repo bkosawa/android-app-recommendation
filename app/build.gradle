@@ -10,13 +10,23 @@ android {
         versionCode 4
         versionName "0.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        buildConfigField "String", "BASE_URL", APP_RECOMMENDATION_BASE_URL
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        local {
+            buildConfigField "String", "BASE_URL", '"http://10.0.2.2:8000"'
+        }
+        production {
+            buildConfigField "String", "BASE_URL", APP_RECOMMENDATION_BASE_URL
         }
     }
 }
