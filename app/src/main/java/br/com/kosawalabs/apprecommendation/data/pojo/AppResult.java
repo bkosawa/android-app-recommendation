@@ -14,7 +14,7 @@ public class AppResult {
     private String next;
     @SerializedName("previous")
     @Expose
-    private Object previous;
+    private String previous;
     @SerializedName("results")
     @Expose
     private List<App> results = null;
@@ -39,7 +39,7 @@ public class AppResult {
         return previous;
     }
 
-    public void setPrevious(Object previous) {
+    public void setPrevious(String previous) {
         this.previous = previous;
     }
 
