@@ -29,6 +29,7 @@ public class AppListPresenterImpl implements AppListPresenter {
     @Override
     public void fetchFirstPage() {
         current = 0;
+        isLastPage = false;
         callFetchApps(FIRST_PAGE);
     }
 
@@ -45,6 +46,7 @@ public class AppListPresenterImpl implements AppListPresenter {
     @Override
     public void fetchRecommendedFirstPage() {
         current = 0;
+        isLastPage = false;
         callFetchRecommended(FIRST_PAGE);
     }
 
