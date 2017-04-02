@@ -3,6 +3,8 @@ package br.com.kosawalabs.apprecommendation.presentation.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,7 @@ import br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String EXTRA_LOGOUT = "br.com.kosawalabs.apprecommendation.EXTRA_LOGOUT";
     private TokenDataRepository tokenRepository;
     private LoginDataRepository loginRepository;
 
@@ -36,12 +39,22 @@ public class LoginActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
 
+    public static void startWithLogout(Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.putExtra(EXTRA_LOGOUT, true);
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindView();
         tokenRepository = new TokenDiskRepository(this);
         loginRepository = new LoginNetworkRepository();
+
+        if (getIntent() != null && getIntent().hasExtra(EXTRA_LOGOUT)) {
+            tokenRepository.removeToken();
+        }
     }
 
     private void bindView() {
@@ -132,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onError(DataError error) {
                 showProgress(false);
-                if(error.getCause().equals("Error Status: 400")) {
+                if (error.getCause().equals("Error Status: 400")) {
                     passwordView.setError(getString(R.string.error_incorrect_password));
                     passwordView.requestFocus();
                 } else {
