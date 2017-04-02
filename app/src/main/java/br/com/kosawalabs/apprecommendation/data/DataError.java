@@ -7,11 +7,12 @@ import java.lang.annotation.RetentionPolicy;
 
 public class DataError {
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({CONNECTION_ERROR, NOT_FOUND})
+    @IntDef({CONNECTION_ERROR, FORBIDDEN, NOT_FOUND})
     public @interface ErrorCode {
     }
 
     public static final int CONNECTION_ERROR = 0;
+    public static final int FORBIDDEN = 403;
     public static final int NOT_FOUND = 404;
 
     private String cause;
