@@ -33,7 +33,7 @@ public class AppDetailFragment extends Fragment {
     private ImageView icon;
     private TextView category;
     private TextView developer;
-    private Button downloadButtom;
+    private Button downloadButton;
 
     private AppDataRepository repository;
 
@@ -80,7 +80,7 @@ public class AppDetailFragment extends Fragment {
         icon = (ImageView) rootView.findViewById(R.id.detail_icon);
         category = (TextView) rootView.findViewById(R.id.detail_category);
         developer = (TextView) rootView.findViewById(R.id.detail_developer);
-        downloadButtom = (Button) rootView.findViewById(R.id.detail_download_button);
+        downloadButton = (Button) rootView.findViewById(R.id.detail_download_button);
         return rootView;
     }
 
@@ -107,7 +107,7 @@ public class AppDetailFragment extends Fragment {
     }
 
     private void setDownloadButton() {
-        downloadButtom.setOnClickListener(new View.OnClickListener() {
+        downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(getGooglePlayIntent(mItem.getPackageName()));
