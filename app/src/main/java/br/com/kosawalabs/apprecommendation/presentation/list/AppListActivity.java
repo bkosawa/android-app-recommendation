@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.kosawalabs.apprecommendation.R;
+import br.com.kosawalabs.apprecommendation.data.disk.TokenDiskRepository;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
@@ -35,13 +36,10 @@ import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
 public class AppListActivity extends AppCompatActivity implements AppListView, View.OnClickListener {
     private boolean mTwoPane;
-    private boolean isRecommended;
-    private AppListPresenterImpl presenter;
-    private String token;
+    private AppListPresenter presenter;
     private LinearLayoutManager layoutManager;
     private SimpleItemRecyclerViewAdapter listAdapter;
     private ProgressBar progress;
@@ -51,9 +49,8 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     private View sendDataFrame;
     private Button sendDataButton;
 
-    public static void start(Activity activity, String token) {
+    public static void start(Activity activity) {
         Intent intent = new Intent(activity, AppListActivity.class);
-        intent.putExtra(EXTRAS_SESSION_TOKEN, token);
         activity.startActivity(intent);
     }
 
@@ -90,8 +87,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         sendDataButton.setOnClickListener(this);
 
-        token = getIntent().getStringExtra(EXTRAS_SESSION_TOKEN);
-        presenter = new AppListPresenterImpl(this, new AppNetworkRepository(token));
+        presenter = new AppListPresenterImpl(this, new AppNetworkRepository(), new TokenDiskRepository(getApplicationContext()));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -114,7 +110,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     @Override
     protected void onResume() {
         super.onResume();
-        refreshList();
+        presenter.init();
     }
 
     @Override
@@ -174,22 +170,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             case R.id.send_data_button:
                 sendMyAppList();
                 return;
-        }
-    }
-
-    private void refreshList() {
-        if (!isRecommended) {
-            presenter.fetchFirstPage();
-        } else {
-            presenter.fetchRecommendedFirstPage();
-        }
-    }
-
-    private void loadMore() {
-        if (!isRecommended) {
-            presenter.fetchNextPage();
-        } else {
-            presenter.fetchRecommendedNextPage();
         }
     }
 
@@ -255,7 +235,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
                         arguments.putInt(AppDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
-                        arguments.putString(EXTRAS_SESSION_TOKEN, token);
                         AppDetailFragment fragment = new AppDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -266,7 +245,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                         Intent intent = new Intent(context, AppDetailActivity.class);
                         Bundle arguments = new Bundle();
                         arguments.putInt(AppDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
-                        arguments.putString(EXTRAS_SESSION_TOKEN, token);
                         intent.putExtras(arguments);
 
                         context.startActivity(intent);
@@ -318,7 +296,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             super.onScrolled(recyclerView, dx, dy);
 
             if (listIsAtTheEnd()) {
-                loadMore();
+                presenter.loadMore();
             }
         }
 
@@ -329,15 +307,15 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_list:
-                    isRecommended = false;
+                    presenter.setRecommended(false);
                     break;
                 case R.id.action_list_recommended:
-                    isRecommended = true;
+                    presenter.setRecommended(true);
                     break;
                 default:
                     return false;
             }
-            refreshList();
+            presenter.refreshList();
             return true;
         }
 

@@ -12,6 +12,7 @@ import java.util.List;
 import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
+import br.com.kosawalabs.apprecommendation.data.TokenDataRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
 import static br.com.kosawalabs.apprecommendation.presentation.list.AppListPresenterImpl.PAGE_SIZE;
@@ -30,17 +31,20 @@ public class AppListPresenterTest {
     private AppDataRepository repository;
 
     @Mock
+    private TokenDataRepository tokenRepository;
+
+    @Mock
     private AppListView view;
 
     @Captor
     private ArgumentCaptor<DataCallback<List<App>>> dataCallbackArgumentCaptor;
 
-    private AppListPresenter presenter;
+    private AppListPresenterImpl presenter;
 
     @Before
     public void setup() {
         initMocks(this);
-        presenter = new AppListPresenterImpl(view, repository);
+        presenter = new AppListPresenterImpl(view, repository, tokenRepository);
     }
 
     @Test

@@ -1,11 +1,14 @@
 package br.com.kosawalabs.apprecommendation.presentation.list;
 
 
+import android.text.TextUtils;
+
 import java.util.List;
 
 import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
+import br.com.kosawalabs.apprecommendation.data.TokenDataRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 
 import static br.com.kosawalabs.apprecommendation.data.DataError.FORBIDDEN;
@@ -17,40 +20,78 @@ public class AppListPresenterImpl implements AppListPresenter {
     private static final boolean NEXT_PAGE = false;
     private final AppListView view;
     private final AppDataRepository repository;
+    private final TokenDataRepository tokenRepository;
+    private boolean isRecommended;
     private boolean isLoading;
     private boolean isLastPage;
     private int current;
 
-    public AppListPresenterImpl(AppListView view, AppDataRepository repository) {
+    public AppListPresenterImpl(AppListView view, AppDataRepository repository, TokenDataRepository tokenRepository) {
         this.view = view;
         this.repository = repository;
+        this.tokenRepository = tokenRepository;
     }
 
     @Override
-    public void fetchFirstPage() {
+    public void init() {
+        String token = tokenRepository.getToken();
+        if (TextUtils.isEmpty(token)) {
+            view.showLogin();
+            return;
+        }
+        repository.setToken(token);
+        refreshList();
+    }
+
+    @Override
+    public void refreshList() {
+        if (!isRecommended) {
+            fetchFirstPage();
+        } else {
+            fetchRecommendedFirstPage();
+        }
+    }
+
+    @Override
+    public void loadMore() {
+        if (!isRecommended) {
+            fetchNextPage();
+        } else {
+            fetchRecommendedNextPage();
+        }
+    }
+
+    @Override
+    public long getPageSize() {
+        return PAGE_SIZE;
+    }
+
+    @Override
+    public void setRecommended(boolean recommended) {
+        this.isRecommended = recommended;
+    }
+
+    protected void fetchFirstPage() {
         current = 0;
         isLastPage = false;
         view.showLoading();
         callFetchApps(FIRST_PAGE);
     }
 
-    @Override
-    public void fetchNextPage() {
+    protected void fetchNextPage() {
         if (shouldLoadMore()) {
             callFetchApps(NEXT_PAGE);
         }
     }
 
-    @Override
-    public void fetchRecommendedFirstPage() {
+    protected void fetchRecommendedFirstPage() {
         current = 0;
         isLastPage = false;
         view.showLoading();
         callFetchRecommended(FIRST_PAGE);
     }
 
-    @Override
-    public void fetchRecommendedNextPage() {
+    protected void fetchRecommendedNextPage() {
         if (shouldLoadMore()) {
             callFetchRecommended(NEXT_PAGE);
         }
@@ -117,10 +158,6 @@ public class AppListPresenterImpl implements AppListPresenter {
                 view.showError(error.getCause());
                 break;
         }
-    }
-
-    long getPageSize() {
-        return PAGE_SIZE;
     }
 
     private boolean isNotLoading() {

@@ -20,7 +20,16 @@ import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
 public class AppNetworkRepository implements AppDataRepository {
     private AppRecommendationClient client;
 
+    public AppNetworkRepository() {
+        client = ServiceGenerator.createService(AppRecommendationClient.class);
+    }
+
     public AppNetworkRepository(String token) {
+        client = ServiceGenerator.createService(AppRecommendationClient.class, token);
+    }
+
+    @Override
+    public void setToken(String token) {
         client = ServiceGenerator.createService(AppRecommendationClient.class, token);
     }
 

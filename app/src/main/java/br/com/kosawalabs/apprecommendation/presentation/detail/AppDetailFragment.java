@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,11 @@ import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
 import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
+import br.com.kosawalabs.apprecommendation.data.TokenDataRepository;
+import br.com.kosawalabs.apprecommendation.data.disk.TokenDiskRepository;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
-
-import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
 
 public class AppDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
@@ -46,9 +47,14 @@ public class AppDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID) && getArguments().containsKey(EXTRAS_SESSION_TOKEN)) {
-            String token = getArguments().getString(EXTRAS_SESSION_TOKEN);
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
             int appId = getArguments().getInt(ARG_ITEM_ID);
+            TokenDataRepository tokenRepository = new TokenDiskRepository(getContext().getApplicationContext());
+            String token = tokenRepository.getToken();
+            if (TextUtils.isEmpty(token)) {
+                getActivity().finish();
+                return;
+            }
             repository = new AppNetworkRepository(token);
             repository.getApp(appId, new DataCallback<App>() {
                 @Override

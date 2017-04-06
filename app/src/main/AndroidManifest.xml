@@ -4,12 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- &lt;!&ndash; To auto-complete the email text field in the login form with the user's emails &ndash;&gt; -->
-    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
-    <!-- <uses-permission android:name="android.permission.READ_PROFILE" /> -->
-    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
     <application
-        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,7 +13,13 @@
         <activity
             android:name=".presentation.list.AppListActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.detail.AppDetailActivity"
             android:label="@string/title_app_detail"
@@ -30,17 +31,17 @@
         </activity>
         <activity
             android:name=".presentation.login.LoginActivity"
-            android:label="@string/title_activity_login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".presentation.list.AppListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity" />
         </activity>
 
         <service
             android:name=".service.UploadMyAppsIService"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

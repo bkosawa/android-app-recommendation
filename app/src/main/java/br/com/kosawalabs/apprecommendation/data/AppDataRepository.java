@@ -6,6 +6,8 @@ import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.data.pojo.PackageName;
 
 public interface AppDataRepository {
+    void setToken(String token);
+
     void getApps(Long offset, Long limit, DataCallback<List<App>> callback);
 
     void getApp(Integer appId, DataCallback<App> callback);

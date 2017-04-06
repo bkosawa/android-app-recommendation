@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity;
 
-import static br.com.kosawalabs.apprecommendation.MainApplication.EXTRAS_SESSION_TOKEN;
-
 public class AppDetailActivity extends AppCompatActivity {
 
     @Override
@@ -25,10 +23,9 @@ public class AppDetailActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Bundle receivedArguments = getIntent().getExtras();
-            String token = receivedArguments.getString(EXTRAS_SESSION_TOKEN);
             int appId = receivedArguments.getInt(AppDetailFragment.ARG_ITEM_ID, -1);
 
-            addDetailFragment(token, appId);
+            addDetailFragment(appId);
         }
     }
 
@@ -49,9 +46,8 @@ public class AppDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void addDetailFragment(String token, int appId) {
+    private void addDetailFragment(int appId) {
         Bundle arguments = new Bundle();
-        arguments.putString(EXTRAS_SESSION_TOKEN, token);
         arguments.putInt(AppDetailFragment.ARG_ITEM_ID, appId);
         AppDetailFragment fragment = new AppDetailFragment();
         fragment.setArguments(arguments);

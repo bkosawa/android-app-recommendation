@@ -2,11 +2,13 @@ package br.com.kosawalabs.apprecommendation.presentation.list;
 
 
 public interface AppListPresenter {
-    void fetchFirstPage();
+    void init();
 
-    void fetchNextPage();
+    void refreshList();
 
-    void fetchRecommendedFirstPage();
+    void loadMore();
 
-    void fetchRecommendedNextPage();
+    long getPageSize();
+
+    void setRecommended(boolean isRecommended);
 }
