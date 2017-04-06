@@ -27,7 +27,7 @@ import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
 
 public class AppDetailFragment extends Fragment {
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_ITEM_APP = "item_app";
 
     private CollapsingToolbarLayout appBarLayout;
     private TextView detail;
@@ -46,37 +46,20 @@ public class AppDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            int appId = getArguments().getInt(ARG_ITEM_ID);
-            TokenDataRepository tokenRepository = new TokenDiskRepository(getContext().getApplicationContext());
-            String token = tokenRepository.getToken();
-            if (TextUtils.isEmpty(token)) {
-                getActivity().finish();
-                return;
-            }
-            repository = new AppNetworkRepository(token);
-            repository.getApp(appId, new DataCallback<App>() {
-                @Override
-                public void onSuccess(App result) {
-                    mItem = result;
-                    setTitle();
-                    setDescription();
-                    setIcon();
-                    setCategory();
-                    setDeveloper();
-                    setDownloadButton();
-                }
-
-                @Override
-                public void onError(DataError error) {
-                    Log.d("TEST", String.valueOf(error));
-                }
-            });
-        }
-
         Activity activity = this.getActivity();
         appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+
+        TokenDataRepository tokenRepository = new TokenDiskRepository(getContext().getApplicationContext());
+        String token = tokenRepository.getToken();
+        if (TextUtils.isEmpty(token)) {
+            getActivity().finish();
+            return;
+        }
+        repository = new AppNetworkRepository(token);
+
+        if (getArguments().containsKey(ARG_ITEM_APP)) {
+            mItem = getArguments().getParcelable(ARG_ITEM_APP);
+        }
     }
 
     @Override
@@ -88,6 +71,38 @@ public class AppDetailFragment extends Fragment {
         developer = (TextView) rootView.findViewById(R.id.detail_developer);
         downloadButton = (Button) rootView.findViewById(R.id.detail_download_button);
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mItem != null) {
+            setAppBasicInfo();
+            repository.getApp(mItem.getId(), new DataCallback<App>() {
+                @Override
+                public void onSuccess(App result) {
+                    mItem = result;
+                    setAppComplementaryInfo();
+                }
+
+                @Override
+                public void onError(DataError error) {
+                    Log.d("TEST", String.valueOf(error));
+                }
+            });
+        }
+    }
+
+    private void setAppBasicInfo() {
+        setTitle();
+        setIcon();
+        setCategory();
+        setDeveloper();
+        setDownloadButton();
+    }
+
+    private void setAppComplementaryInfo() {
+        setDescription();
     }
 
     private void setTitle() {

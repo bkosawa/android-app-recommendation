@@ -234,7 +234,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putInt(AppDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                        arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, holder.mItem);
                         AppDetailFragment fragment = new AppDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -244,7 +244,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                         Context context = v.getContext();
                         Intent intent = new Intent(context, AppDetailActivity.class);
                         Bundle arguments = new Bundle();
-                        arguments.putInt(AppDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                        arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, holder.mItem);
                         intent.putExtras(arguments);
 
                         context.startActivity(intent);

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import br.com.kosawalabs.apprecommendation.R;
+import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity;
 
 public class AppDetailActivity extends AppCompatActivity {
@@ -23,9 +24,8 @@ public class AppDetailActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Bundle receivedArguments = getIntent().getExtras();
-            int appId = receivedArguments.getInt(AppDetailFragment.ARG_ITEM_ID, -1);
-
-            addDetailFragment(appId);
+            App app = receivedArguments.getParcelable(AppDetailFragment.ARG_ITEM_APP);
+            addDetailFragment(app);
         }
     }
 
@@ -46,9 +46,9 @@ public class AppDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void addDetailFragment(int appId) {
+    private void addDetailFragment(App app) {
         Bundle arguments = new Bundle();
-        arguments.putInt(AppDetailFragment.ARG_ITEM_ID, appId);
+        arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, app);
         AppDetailFragment fragment = new AppDetailFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
