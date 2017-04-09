@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recomendação de Apps</string>
+    <string name="title_activity_login">Registro</string>
+    <string name="title_app_detail">Detalhe do Aplicativo</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Nome de usuário</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_login">Entrar</string>
+    <string name="error_incorrect_password">Esta senha está incorreta</string>
+    <string name="error_field_required">Este campo é obrigatório</string>
+
+    <string name="error_title">Um erro acontenceu</string>
+    <string name="no_content_title">Você ainda não possui recomendação</string>
+    <string name="no_content_description">Você pode enviar uma lista dos seus aplicativos instalados para melhorar a recomendação</string>
+    <string name="update_my_apps">Enviar lista de meus aplicativos</string>
+    <string name="toast_sending_packages">Enviando lista de aplicativos instalados</string>
+    <string name="toast_packages_found">%d aplicativos foram encontrados</string>
+    <string name="toast_logout">Você foi deslogado</string>
+
+    <string name="download">BAIXAR</string>
+</resources>
