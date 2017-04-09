@@ -32,14 +32,14 @@
 
             <TextView
                 android:id="@+id/list_name"
-                style="@style/AppTheme.CardView.TextView.Headline"
+                style="@style/AppTheme.TextView.CardView.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="App Recommendation" />
 
             <TextView
                 android:id="@+id/list_developer"
-                style="@style/AppTheme.CardView.TextView.Caption"
+                style="@style/AppTheme.TextView.CardView.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -47,7 +47,7 @@
 
             <TextView
                 android:id="@+id/list_category"
-                style="@style/AppTheme.CardView.TextView.Caption"
+                style="@style/AppTheme.TextView.CardView.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="TOOL" />
