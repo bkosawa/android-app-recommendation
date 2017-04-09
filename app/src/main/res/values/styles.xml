@@ -21,4 +21,17 @@
         <item name="colorAccent">@color/button_normal</item>
     </style>
 
+    <style name="AppTheme.CardView.TextView" parent="android:Widget.TextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="AppTheme.CardView.TextView.Caption">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme.CardView.TextView.Headline">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

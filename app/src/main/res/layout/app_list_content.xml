@@ -27,35 +27,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/list_name"
+                style="@style/AppTheme.CardView.TextView.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 tools:text="App Recommendation" />
 
             <TextView
                 android:id="@+id/list_developer"
+                style="@style/AppTheme.CardView.TextView.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textSize="14sp"
                 tools:text="KOSAWA LABS" />
 
             <TextView
                 android:id="@+id/list_category"
+                style="@style/AppTheme.CardView.TextView.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textSize="14sp"
                 tools:text="TOOL" />
         </LinearLayout>
     </LinearLayout>
