@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -88,6 +89,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         sendDataButton.setOnClickListener(this);
 
         presenter = new AppListPresenterImpl(this, new AppNetworkRepository(), new TokenDiskRepository(getApplicationContext()));
+        presenter.init();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,7 +112,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.init();
     }
 
     @Override
@@ -246,8 +247,9 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                         Bundle arguments = new Bundle();
                         arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, holder.mItem);
                         intent.putExtras(arguments);
-
-                        context.startActivity(intent);
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(AppListActivity.this, holder.mIcon, "app_icon");
+                        intent.putExtras(arguments);
+                        startActivity(intent, options.toBundle());
                     }
                 }
             });

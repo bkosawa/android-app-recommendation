@@ -14,6 +14,7 @@
 
         <ImageView
             android:id="@+id/detail_icon"
+            android:transitionName="app_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             tools:src="@mipmap/ic_launcher" />
