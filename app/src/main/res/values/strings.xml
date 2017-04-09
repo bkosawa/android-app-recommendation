@@ -11,7 +11,7 @@
     <string name="error_field_required">This field is required</string>
 
     <string name="error_title">An error has happened</string>
-    <string name="no_content_title">You have not recommendation yet</string>
+    <string name="no_content_title">You have no recommendation yet</string>
     <string name="no_content_description">You can send a list of your apps to improve recommendation</string>
     <string name="update_my_apps">Upload a list of my apps</string>
     <string name="toast_sending_packages">Sending installed apps</string>
