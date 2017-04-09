@@ -35,6 +35,7 @@ public class AppDetailFragment extends Fragment {
     private TextView category;
     private TextView developer;
     private Button downloadButton;
+    private ImageView backdrop;
 
     private AppDataRepository repository;
 
@@ -48,6 +49,7 @@ public class AppDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Activity activity = this.getActivity();
         appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+        backdrop = (ImageView) activity.findViewById(R.id.detail_backdrop);
 
         TokenDataRepository tokenRepository = new TokenDiskRepository(getContext().getApplicationContext());
         String token = tokenRepository.getToken();
@@ -96,6 +98,7 @@ public class AppDetailFragment extends Fragment {
     private void setAppBasicInfo() {
         setTitle();
         setIcon();
+        setBackdrop();
         setCategory();
         setDeveloper();
         setDownloadButton();
@@ -117,6 +120,12 @@ public class AppDetailFragment extends Fragment {
 
     private void setIcon() {
         ImageLoaderFacade.loadImage(this, mItem.getIconUrl(), icon);
+    }
+
+    private void setBackdrop() {
+        if (backdrop != null) {
+            ImageLoaderFacade.loadImage(this, mItem.getIconUrl(), backdrop);
+        }
     }
 
     private void setCategory() {
