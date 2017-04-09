@@ -12,6 +12,7 @@
     <string name="error_field_required">Este campo é obrigatório</string>
 
     <string name="error_title">Um erro acontenceu</string>
+    <string name="error_retry">Tentar de novo</string>
     <string name="no_content_title">Você ainda não possui recomendação</string>
     <string name="no_content_description">Você pode enviar uma lista dos seus aplicativos instalados para melhorar a recomendação</string>
     <string name="update_my_apps">Enviar lista de meus aplicativos</string>

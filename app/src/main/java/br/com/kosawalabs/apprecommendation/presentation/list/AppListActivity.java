@@ -47,6 +47,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     private RecyclerView listFrame;
     private View errorFrame;
     private TextView errorDesc;
+    private Button tryAgainButton;
     private View sendDataFrame;
     private Button sendDataButton;
 
@@ -83,10 +84,12 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         progress = (ProgressBar) findViewById(R.id.progress_bar);
         errorFrame = findViewById(R.id.error_frame);
         errorDesc = (TextView) findViewById(R.id.list_error_description);
+        tryAgainButton = (Button) findViewById(R.id.try_again_button);
         sendDataFrame = findViewById(R.id.send_data_frame);
         sendDataButton = (Button) findViewById(R.id.send_data_button);
 
         sendDataButton.setOnClickListener(this);
+        tryAgainButton.setOnClickListener(this);
 
         presenter = new AppListPresenterImpl(this, new AppNetworkRepository(), new TokenDiskRepository(getApplicationContext()));
         presenter.init();
@@ -170,6 +173,9 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         switch (v.getId()) {
             case R.id.send_data_button:
                 sendMyAppList();
+                return;
+            case R.id.try_again_button:
+                presenter.refreshList();
                 return;
         }
     }
