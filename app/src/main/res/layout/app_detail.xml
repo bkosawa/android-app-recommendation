@@ -28,17 +28,17 @@
 
             <TextView
                 android:id="@+id/detail_developer"
-                style="@style/TextAppearance.AppCompat.Body1"
+                style="@style/AppTheme.TextView.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="KOSAWA LABS" />
 
             <TextView
                 android:id="@+id/detail_category"
-                style="@style/TextAppearance.AppCompat.Body1"
+                style="@style/AppTheme.TextView.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 tools:text="TOOL" />
 
             <Button
@@ -52,11 +52,10 @@
 
     <TextView
         android:id="@+id/app_detail"
-        style="?android:attr/textAppearanceLarge"
+        style="@style/AppTheme.TextView.Body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:textIsSelectable="true"
         tools:text="Lorem ipsum dolor sit amet, ne has dicat vulputate. Cum at stet probo, vis mundi iudicabit at. Ea has quando aliquando theophrastus. Soleat latine legendos ut vim, noster torquatos repudiandae cu cum. Sit omnis temporibus conclusionemque in. Per cu alia necessitatibus, quo quod integre conceptam ut, id eros graeci convenire per. Cum error delenit interesset ea, an vis habemus erroribus, ad pro labore petentium constituto." />
 
 </LinearLayout>
