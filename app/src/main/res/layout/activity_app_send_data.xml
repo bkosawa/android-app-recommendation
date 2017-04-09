@@ -14,22 +14,22 @@
 
     <TextView
         android:id="@+id/list_no_content_title"
+        style="@style/AppTheme.TextView.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
-        android:text="@string/no_content_title"
-        android:textColor="@color/primary_text"
-        android:textSize="34sp" />
+        android:text="@string/no_content_title" />
 
     <TextView
         android:id="@+id/list_no_content_description"
+        style="@style/AppTheme.TextView.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:text="@string/no_content_description"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/send_data_button"
