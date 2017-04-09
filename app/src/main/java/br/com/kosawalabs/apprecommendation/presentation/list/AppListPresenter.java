@@ -11,4 +11,6 @@ public interface AppListPresenter {
     long getPageSize();
 
     void setRecommended(boolean isRecommended);
+
+    boolean isLoading();
 }

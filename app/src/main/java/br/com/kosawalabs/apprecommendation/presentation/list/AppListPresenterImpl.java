@@ -71,6 +71,11 @@ public class AppListPresenterImpl implements AppListPresenter {
         this.isRecommended = recommended;
     }
 
+    @Override
+    public boolean isLoading() {
+        return isLoading;
+    }
+
     protected void fetchFirstPage() {
         current = 0;
         isLastPage = false;

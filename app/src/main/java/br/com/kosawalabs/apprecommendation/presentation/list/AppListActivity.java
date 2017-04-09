@@ -208,6 +208,8 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     }
 
     public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+        private final int VIEW_ITEM = 1;
+        private final int VIEW_PROGRESS = 0;
 
         private final List<App> apps;
 
@@ -221,61 +223,81 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.app_list_content, parent, false);
-            return new ViewHolder(view);
+        public int getItemViewType(int position) {
+            return position != apps.size() ? VIEW_ITEM : VIEW_PROGRESS;
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            App app = this.apps.get(position);
-            holder.mItem = app;
-            ImageLoaderFacade.loadImage(AppListActivity.this, app.getIconUrl(), holder.mIcon);
-            holder.mName.setText(app.getName());
-            holder.mDeveloper.setText(app.getDeveloperName().toUpperCase());
-            holder.mCategory.setText(app.getCategoryName().toUpperCase());
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            if (viewType == VIEW_ITEM) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.app_list_content, parent, false);
+                return new CardViewHolder(view);
+            } else {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.app_list_progress, parent, false);
+                return new ProgressViewHolder(view);
+            }
+        }
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mTwoPane) {
-                        Bundle arguments = new Bundle();
-                        arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, holder.mItem);
-                        AppDetailFragment fragment = new AppDetailFragment();
-                        fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.app_detail_container, fragment)
-                                .commit();
-                    } else {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, AppDetailActivity.class);
-                        Bundle arguments = new Bundle();
-                        arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, holder.mItem);
-                        intent.putExtras(arguments);
-                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(AppListActivity.this, holder.mIcon, "app_icon");
-                        intent.putExtras(arguments);
-                        startActivity(intent, options.toBundle());
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            if (holder instanceof CardViewHolder) {
+                final CardViewHolder cardHolder = (CardViewHolder) holder;
+                App app = this.apps.get(position);
+                cardHolder.mItem = app;
+                ImageLoaderFacade.loadImage(AppListActivity.this, app.getIconUrl(), cardHolder.mIcon);
+                cardHolder.mName.setText(app.getName());
+                cardHolder.mDeveloper.setText(app.getDeveloperName().toUpperCase());
+                cardHolder.mCategory.setText(app.getCategoryName().toUpperCase());
+
+                cardHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mTwoPane) {
+                            Bundle arguments = new Bundle();
+                            arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, cardHolder.mItem);
+                            AppDetailFragment fragment = new AppDetailFragment();
+                            fragment.setArguments(arguments);
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.app_detail_container, fragment)
+                                    .commit();
+                        } else {
+                            Context context = v.getContext();
+                            Intent intent = new Intent(context, AppDetailActivity.class);
+                            Bundle arguments = new Bundle();
+                            arguments.putParcelable(AppDetailFragment.ARG_ITEM_APP, cardHolder.mItem);
+                            intent.putExtras(arguments);
+                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(AppListActivity.this, cardHolder.mIcon, "app_icon");
+                            intent.putExtras(arguments);
+                            startActivity(intent, options.toBundle());
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         @Override
         public int getItemCount() {
-            return this.apps.size();
+            return presenter.isLoading() ? this.apps.size() + 1 : this.apps.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public abstract class ViewHolder extends RecyclerView.ViewHolder {
+            public ViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
+
+        public class CardViewHolder extends ViewHolder {
             public final View mView;
-            private final ImageView mIcon;
+            public final ImageView mIcon;
             public final TextView mName;
-            private final TextView mDeveloper;
-            private final TextView mCategory;
+            public final TextView mDeveloper;
+            public final TextView mCategory;
 
             public App mItem;
 
-            public ViewHolder(View view) {
+            public CardViewHolder(View view) {
                 super(view);
                 mView = view;
                 mIcon = (ImageView) view.findViewById(R.id.list_icon);
@@ -287,6 +309,12 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             @Override
             public String toString() {
                 return super.toString() + " '" + mName.getText() + "'";
+            }
+        }
+
+        public class ProgressViewHolder extends ViewHolder {
+            public ProgressViewHolder(View itemView) {
+                super(itemView);
             }
         }
 
