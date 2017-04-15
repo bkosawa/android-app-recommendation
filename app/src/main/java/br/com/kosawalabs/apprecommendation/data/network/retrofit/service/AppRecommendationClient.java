@@ -14,15 +14,15 @@ import retrofit2.http.Query;
 
 public interface AppRecommendationClient {
     @GET("/api/apps/")
-    Call<AppResult> getApps(@Query("offset") Long offset,
-                            @Query("limit") Long limit);
+    Call<AppResult> getApps(@Query("offset") Integer offset,
+                            @Query("limit") Integer limit);
 
     @GET("/api/apps/{appid}")
     Call<App> getApp(@Path("appid") Integer appId);
 
     @GET("/api/recommended-apps/")
-    Call<AppResult> getRecommendedApps(@Query("offset") Long offset,
-                                       @Query("limit") Long limit);
+    Call<AppResult> getRecommendedApps(@Query("offset") Integer offset,
+                                       @Query("limit") Integer limit);
 
     @POST("/api/recommended-apps/")
     Call<Void> postMyApps(@Body List<PackageName> packageNames);

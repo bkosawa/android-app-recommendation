@@ -61,7 +61,7 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     }
 
     @Override
-    public long getPageSize() {
+    public int getPageSize() {
         return model.getPageSize();
     }
 

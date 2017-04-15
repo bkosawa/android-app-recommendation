@@ -9,7 +9,7 @@ public interface AppListModel {
 
     void setRecommended(boolean recommended);
 
-    long getPageSize();
+    int getPageSize();
 
     boolean hasStopLoading();
 }

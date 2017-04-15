@@ -34,7 +34,7 @@ public class AppNetworkRepository implements AppDataRepository {
     }
 
     @Override
-    public void getApps(Long offset, Long limit, final DataCallback<List<App>> callback) {
+    public void getApps(Integer offset, Integer limit, final DataCallback<List<App>> callback) {
         client.getApps(offset, limit).enqueue(new Callback<AppResult>() {
             @Override
             public void onResponse(Call<AppResult> call, Response<AppResult> response) {
@@ -96,7 +96,7 @@ public class AppNetworkRepository implements AppDataRepository {
     }
 
     @Override
-    public void getRecommendedApps(Long offset, Long limit, final DataCallback<List<App>> callback) {
+    public void getRecommendedApps(Integer offset, Integer limit, final DataCallback<List<App>> callback) {
         client.getRecommendedApps(offset, limit).enqueue(new Callback<AppResult>() {
             @Override
             public void onResponse(Call<AppResult> call, Response<AppResult> response) {

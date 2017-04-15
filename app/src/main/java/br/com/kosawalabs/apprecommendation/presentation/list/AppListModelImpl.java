@@ -16,7 +16,7 @@ import static br.com.kosawalabs.apprecommendation.data.DataError.FORBIDDEN;
 import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
 
 public class AppListModelImpl implements AppListModel {
-    protected static final long PAGE_SIZE = 25L;
+    protected static final int PAGE_SIZE = 25;
     private static final boolean FIRST_PAGE = true;
     private static final boolean NEXT_PAGE = false;
 
@@ -72,7 +72,7 @@ public class AppListModelImpl implements AppListModel {
     }
 
     @Override
-    public long getPageSize() {
+    public int getPageSize() {
         return PAGE_SIZE;
     }
 
@@ -108,7 +108,7 @@ public class AppListModelImpl implements AppListModel {
     private void callFetchApps(final boolean isFirstPage) {
         if (isNotLoading()) {
             isLoading = true;
-            repository.getApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
+            repository.getApps(current, PAGE_SIZE, new DataCallback<List<App>>() {
                 @Override
                 public void onSuccess(List<App> result) {
                     callShowApps(result, isFirstPage);
@@ -125,7 +125,7 @@ public class AppListModelImpl implements AppListModel {
     private void callFetchRecommended(final boolean isFirstPage) {
         if (isNotLoading()) {
             isLoading = true;
-            repository.getRecommendedApps((long) current, PAGE_SIZE, new DataCallback<List<App>>() {
+            repository.getRecommendedApps(current, PAGE_SIZE, new DataCallback<List<App>>() {
                 @Override
                 public void onSuccess(List<App> result) {
                     callShowApps(result, isFirstPage);

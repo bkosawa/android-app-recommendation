@@ -13,7 +13,7 @@ public abstract class AppListPresenter {
 
         void onListScrolledToTheEnd();
 
-        long getPageSize();
+        int getPageSize();
 
         void onAvailableListClicked();
 

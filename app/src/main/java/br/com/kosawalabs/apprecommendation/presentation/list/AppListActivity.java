@@ -40,9 +40,12 @@ import static android.view.View.VISIBLE;
 
 public class AppListActivity extends AppCompatActivity implements AppListView, View.OnClickListener {
     private boolean mTwoPane;
+
     private AppListPresenter.AppListPresenterFromView presenter;
+
     private LinearLayoutManager layoutManager;
     private SimpleItemRecyclerViewAdapter listAdapter;
+
     private ProgressBar progress;
     private RecyclerView listFrame;
     private View errorFrame;
@@ -75,7 +78,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         layoutManager = new LinearLayoutManager(this);
         listFrame.setLayoutManager(layoutManager);
-        listFrame.addOnScrollListener(new AppListOnScrollListener());
+        listFrame.addOnScrollListener(new AppListOnScrollListener((int) presenter.getPageSize()));
 
         if (findViewById(R.id.app_detail_container) != null) {
             mTwoPane = true;
@@ -188,16 +191,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                 presenter.onTryAgainButtonClicked();
                 return;
         }
-    }
-
-    private boolean listIsAtTheEnd() {
-        int visibleItemCount = getVisibleItemCount();
-        int totalItemCount = getTotalItemCount();
-        int firstVisibleItemPosition = getFirstVisibleItemPosition();
-
-        return (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                && firstVisibleItemPosition >= 0
-                && totalItemCount >= presenter.getPageSize();
     }
 
     private int getVisibleItemCount() {
@@ -327,6 +320,12 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
     private class AppListOnScrollListener extends RecyclerView.OnScrollListener {
 
+        private final int pageSize;
+
+        public AppListOnScrollListener(int pageSize) {
+            this.pageSize = pageSize;
+        }
+
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
@@ -339,6 +338,16 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             if (listIsAtTheEnd()) {
                 presenter.onListScrolledToTheEnd();
             }
+        }
+
+        private boolean listIsAtTheEnd() {
+            int visibleItemCount = getVisibleItemCount();
+            int totalItemCount = getTotalItemCount();
+            int firstVisibleItemPosition = getFirstVisibleItemPosition();
+
+            return (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                    && firstVisibleItemPosition >= 0
+                    && totalItemCount >= pageSize;
         }
 
     }

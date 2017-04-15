@@ -54,14 +54,14 @@ public class AppListModelTest {
     public void givenFetchFirstPageIsCalledItShouldCallRepositoryWithZeroOffsetAndZeroLimit() {
         model.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), any(DataCallback.class));
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), any(DataCallback.class));
     }
 
     @Test
     public void givenFetchFirstPageIsCalledAndGetAppsIsSuccessfullyItShouldCallShowAppsOnView() {
         model.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -77,7 +77,7 @@ public class AppListModelTest {
     public void givenFetchFirstPageIsCalledAndGetAppsReturnErrorItShouldNotCallShowAppsOnView() {
         model.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -103,7 +103,7 @@ public class AppListModelTest {
     public void givenFetchFirstPageIsCalledAndGetAppsHasReturnWithPageSizeItemsItShouldBePossibleToLoadMore() {
         model.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -118,7 +118,7 @@ public class AppListModelTest {
     public void givenFetchFirstPageIsCalledAndGetAppsHasReturnWithLessThanPageSizeItemsItShouldNotBePossibleToLoadMore() {
         model.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -133,7 +133,7 @@ public class AppListModelTest {
     public void givenFetchFirstPageIsCalledAndGetAppsHasReturnWithErrorItShouldNotBePossibleToLoadMore() {
         model.fetchFirstPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -146,7 +146,7 @@ public class AppListModelTest {
     public void givenFetchNextPageIsCalledAndGetAppsIsSuccessfullyItShouldCallShowMoreAppsOnView() {
         model.fetchNextPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -162,7 +162,7 @@ public class AppListModelTest {
     public void givenFetchNextPageIsCalledForTheSecondTimeAndGetAppsIsSuccessfullyItShouldCallShowMoreAppsOnViewWithCorrectOffset() {
         model.fetchNextPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -182,7 +182,7 @@ public class AppListModelTest {
     public void givenFetchNextPageIsCalledAndGetAppsReturnErrorItShouldNotCallShowMoreAppsOnView() {
         model.fetchNextPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -203,7 +203,7 @@ public class AppListModelTest {
     public void givenFetchNextPageIsCalledAndGetAppsHasReturnWithPageSizeItemsItShouldBePossibleToLoadMore() {
         model.fetchNextPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -218,7 +218,7 @@ public class AppListModelTest {
     public void givenFetchNextPageIsCalledAndGetAppsHasReturnWithLessThanPageSizeItemsItShouldNotBePossibleToLoadMore() {
         model.fetchNextPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
@@ -233,7 +233,7 @@ public class AppListModelTest {
     public void givenFetchNextPageIsCalledAndGetAppsHasReturnWithErrorItShouldNotBePossibleToLoadMore() {
         model.fetchNextPage();
 
-        verify(repository).getApps(eq(0L), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
+        verify(repository).getApps(eq(0), eq(PAGE_SIZE), dataCallbackArgumentCaptor.capture());
 
         DataCallback<List<App>> dataCallback = dataCallbackArgumentCaptor.getValue();
 
