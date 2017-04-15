@@ -45,7 +45,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     private AppListPresenter.AppListPresenterFromView presenter;
 
     private LinearLayoutManager layoutManager;
-    private SimpleItemRecyclerViewAdapter listAdapter;
+    private AppListRecyclerViewAdapter listAdapter;
 
     private ProgressBar progress;
     private RecyclerView listFrame;
@@ -127,7 +127,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         errorFrame.setVisibility(GONE);
         sendDataFrame.setVisibility(GONE);
         listFrame.setVisibility(VISIBLE);
-        listAdapter = new SimpleItemRecyclerViewAdapter(apps);
+        listAdapter = new AppListRecyclerViewAdapter(apps);
         listFrame.setAdapter(listAdapter);
     }
 
@@ -206,13 +206,13 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         return layoutManager.findFirstVisibleItemPosition();
     }
 
-    public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+    class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecyclerViewAdapter.ViewHolder> {
         private final int VIEW_ITEM = 1;
         private final int VIEW_PROGRESS = 0;
 
         private final List<App> apps;
 
-        public SimpleItemRecyclerViewAdapter(List<App> apps) {
+        AppListRecyclerViewAdapter(List<App> apps) {
             this.apps = apps;
         }
 
@@ -281,22 +281,22 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             return presenter.hasStopLoading() ? this.apps.size() : this.apps.size() + 1;
         }
 
-        public abstract class ViewHolder extends RecyclerView.ViewHolder {
-            public ViewHolder(View itemView) {
+        abstract class ViewHolder extends RecyclerView.ViewHolder {
+            ViewHolder(View itemView) {
                 super(itemView);
             }
         }
 
-        public class CardViewHolder extends ViewHolder {
-            public final View mView;
-            public final ImageView mIcon;
-            public final TextView mName;
-            public final TextView mDeveloper;
-            public final TextView mCategory;
+        class CardViewHolder extends ViewHolder {
+            final View mView;
+            final ImageView mIcon;
+            final TextView mName;
+            final TextView mDeveloper;
+            final TextView mCategory;
 
-            public App mItem;
+            App mItem;
 
-            public CardViewHolder(View view) {
+            CardViewHolder(View view) {
                 super(view);
                 mView = view;
                 mIcon = (ImageView) view.findViewById(R.id.list_icon);
@@ -304,15 +304,10 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                 mDeveloper = (TextView) view.findViewById(R.id.list_developer);
                 mCategory = (TextView) view.findViewById(R.id.list_category);
             }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mName.getText() + "'";
-            }
         }
 
-        public class ProgressViewHolder extends ViewHolder {
-            public ProgressViewHolder(View itemView) {
+        class ProgressViewHolder extends ViewHolder {
+            ProgressViewHolder(View itemView) {
                 super(itemView);
             }
         }
