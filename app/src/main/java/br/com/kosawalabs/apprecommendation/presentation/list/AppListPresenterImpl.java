@@ -66,11 +66,6 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     }
 
     @Override
-    public boolean isTotalBiggerOrEqualThanPageSize(int totalItemCount) {
-        return totalItemCount >= model.getPageSize();
-    }
-
-    @Override
     public void onResultApps(List<App> apps) {
         view.showApps(apps);
     }

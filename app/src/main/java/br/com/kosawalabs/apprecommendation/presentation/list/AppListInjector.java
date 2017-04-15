@@ -10,7 +10,8 @@ public class AppListInjector {
     public static AppListPresenterImpl inject(AppListView view, Context context) {
         AppListModelImpl model = new AppListModelImpl(
                 new AppNetworkRepository(),
-                new TokenDiskRepository(context));
+                new TokenDiskRepository(context)
+        );
         AppListPresenterImpl presenter = new AppListPresenterImpl(view, model);
         model.setPresenter(presenter);
         return presenter;

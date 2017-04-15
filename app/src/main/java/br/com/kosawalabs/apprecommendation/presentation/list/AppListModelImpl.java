@@ -16,7 +16,7 @@ import static br.com.kosawalabs.apprecommendation.data.DataError.FORBIDDEN;
 import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
 
 public class AppListModelImpl implements AppListModel {
-    protected static final int PAGE_SIZE = 25;
+    public static final int PAGE_SIZE = 25;
     private static final boolean FIRST_PAGE = true;
     private static final boolean NEXT_PAGE = false;
 
@@ -30,7 +30,6 @@ public class AppListModelImpl implements AppListModel {
     private int current;
 
     public AppListModelImpl(AppDataRepository repository, TokenDataRepository tokenRepository) {
-
         this.repository = repository;
         this.tokenRepository = tokenRepository;
         repository.setToken(tokenRepository.getToken());
@@ -69,11 +68,6 @@ public class AppListModelImpl implements AppListModel {
     @Override
     public void setRecommended(boolean recommended) {
         this.isRecommended = recommended;
-    }
-
-    @Override
-    public int getPageSize() {
-        return PAGE_SIZE;
     }
 
     @Override

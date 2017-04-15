@@ -37,6 +37,7 @@ import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static br.com.kosawalabs.apprecommendation.presentation.list.AppListModelImpl.PAGE_SIZE;
 
 public class AppListActivity extends AppCompatActivity implements AppListView, View.OnClickListener {
     private boolean mTwoPane;
@@ -341,7 +342,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
             return (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                     && firstVisibleItemPosition >= 0
-                    && presenter.isTotalBiggerOrEqualThanPageSize(totalItemCount);
+                    && totalItemCount >= PAGE_SIZE;
         }
 
     }

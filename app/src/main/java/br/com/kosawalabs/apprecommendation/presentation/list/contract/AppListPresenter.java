@@ -13,8 +13,6 @@ public abstract class AppListPresenter {
 
         void onListScrolledToTheEnd();
 
-        boolean isTotalBiggerOrEqualThanPageSize(int totalItemCount);
-
         void onAvailableListClicked();
 
         void onRecommendedListClicked();
