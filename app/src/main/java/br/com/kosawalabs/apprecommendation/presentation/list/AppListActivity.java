@@ -78,7 +78,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         layoutManager = new LinearLayoutManager(this);
         listFrame.setLayoutManager(layoutManager);
-        listFrame.addOnScrollListener(new AppListOnScrollListener((int) presenter.getPageSize()));
+        listFrame.addOnScrollListener(new AppListOnScrollListener());
 
         if (findViewById(R.id.app_detail_container) != null) {
             mTwoPane = true;
@@ -320,12 +320,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
     private class AppListOnScrollListener extends RecyclerView.OnScrollListener {
 
-        private final int pageSize;
-
-        public AppListOnScrollListener(int pageSize) {
-            this.pageSize = pageSize;
-        }
-
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
@@ -347,7 +341,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
             return (visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                     && firstVisibleItemPosition >= 0
-                    && totalItemCount >= pageSize;
+                    && presenter.isTotalBiggerOrEqualThanPageSize(totalItemCount);
         }
 
     }

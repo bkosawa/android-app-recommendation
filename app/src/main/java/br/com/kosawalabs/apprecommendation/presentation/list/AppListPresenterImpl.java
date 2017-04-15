@@ -61,13 +61,13 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     }
 
     @Override
-    public int getPageSize() {
-        return model.getPageSize();
+    public boolean hasStopLoading() {
+        return model.hasStopLoading();
     }
 
     @Override
-    public boolean hasStopLoading() {
-        return model.hasStopLoading();
+    public boolean isTotalBiggerOrEqualThanPageSize(int totalItemCount) {
+        return totalItemCount >= model.getPageSize();
     }
 
     @Override
