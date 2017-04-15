@@ -71,7 +71,7 @@ public class AppListModelImpl implements AppListModel {
     }
 
     @Override
-    public boolean hasStopLoading() {
+    public boolean isLastPage() {
         return isLastPage;
     }
 

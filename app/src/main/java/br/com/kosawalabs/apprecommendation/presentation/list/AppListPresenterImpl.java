@@ -62,7 +62,7 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
 
     @Override
     public boolean hasStopLoading() {
-        return model.hasStopLoading();
+        return model.isLastPage();
     }
 
     @Override

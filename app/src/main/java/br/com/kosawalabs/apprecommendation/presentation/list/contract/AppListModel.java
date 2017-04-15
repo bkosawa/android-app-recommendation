@@ -9,5 +9,5 @@ public interface AppListModel {
 
     void setRecommended(boolean recommended);
 
-    boolean hasStopLoading();
+    boolean isLastPage();
 }
