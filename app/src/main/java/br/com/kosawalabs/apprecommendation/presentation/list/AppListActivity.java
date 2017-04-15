@@ -175,7 +175,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                 sendMyAppList();
                 return;
             case R.id.try_again_button:
-                presenter.refreshList();
+                presenter.onTryAgainButtonClicked();
                 return;
         }
     }

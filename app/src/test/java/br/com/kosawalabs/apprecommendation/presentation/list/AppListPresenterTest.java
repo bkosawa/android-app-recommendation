@@ -73,6 +73,12 @@ public class AppListPresenterTest {
         presenterFromView.onRecommendedListClicked();
 
         verify(model).setRecommended(eq(true));
+    }
 
+    @Test
+    public void givenOnTryAgainButtonIsClickedItShouldFetchFirstPage() throws Exception {
+        presenterFromView.onTryAgainButtonClicked();
+
+        verify(model).fetchFirstPage();
     }
 }

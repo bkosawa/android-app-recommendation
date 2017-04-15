@@ -58,6 +58,11 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     }
 
     @Override
+    public void onTryAgainButtonClicked() {
+        refreshList();
+    }
+
+    @Override
     public void onResultApps(List<App> apps) {
         view.showApps(apps);
     }

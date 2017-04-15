@@ -20,6 +20,8 @@ public abstract class AppListPresenter {
         void onAvailableListClicked();
 
         boolean hasStopLoading();
+
+        void onTryAgainButtonClicked();
     }
 
     public interface AppListPresenterFromModel {
