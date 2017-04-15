@@ -21,4 +21,6 @@
     <string name="toast_logout">Você foi deslogado</string>
 
     <string name="download">BAIXAR</string>
+    <string name="bottom_navigation_available">Apps Disponíveis</string>
+    <string name="bottom_navigation_recommended">Apps Recomendados</string>
 </resources>
