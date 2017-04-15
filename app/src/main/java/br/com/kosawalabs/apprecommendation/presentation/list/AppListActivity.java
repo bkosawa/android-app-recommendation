@@ -332,7 +332,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
             super.onScrolled(recyclerView, dx, dy);
 
             if (listIsAtTheEnd()) {
-                presenter.loadMore();
+                presenter.onListScrolledToTheEnd();
             }
         }
 

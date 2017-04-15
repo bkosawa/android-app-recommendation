@@ -52,4 +52,11 @@ public class AppListPresenterTest {
         verify(view).showLogin();
         verify(model, never()).fetchFirstPage();
     }
+
+    @Test
+    public void givenonListScrolledToTheEndIsCalledItShouldCallFetchNextPage() throws Exception {
+        presenterFromView.onListScrolledToTheEnd();
+
+        verify(model).fetchNextPage();
+    }
 }

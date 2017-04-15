@@ -33,7 +33,7 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     }
 
     @Override
-    public void loadMore() {
+    public void onListScrolledToTheEnd() {
         model.fetchNextPage();
     }
 

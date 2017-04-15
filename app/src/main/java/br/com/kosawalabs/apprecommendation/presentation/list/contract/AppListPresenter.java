@@ -11,7 +11,7 @@ public abstract class AppListPresenter {
 
         void refreshList();
 
-        void loadMore();
+        void onListScrolledToTheEnd();
 
         long getPageSize();
 
