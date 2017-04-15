@@ -17,4 +17,8 @@ public interface AppListView {
     void showLogin();
 
     void showLoading();
+
+    void showSendingAppsMessage();
+
+    void startActionUploadApps();
 }

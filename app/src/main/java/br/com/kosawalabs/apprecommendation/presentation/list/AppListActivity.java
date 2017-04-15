@@ -105,7 +105,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.update_my_apps:
-                sendMyAppList();
+                presenter.onSendDataButtonClicked();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -169,10 +169,20 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     }
 
     @Override
+    public void showSendingAppsMessage() {
+        Toast.makeText(this, R.string.toast_sending_packages, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startActionUploadApps() {
+        UploadMyAppsIService.startActionUploadApps(this);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_data_button:
-                sendMyAppList();
+                presenter.onSendDataButtonClicked();
                 return;
             case R.id.try_again_button:
                 presenter.onTryAgainButtonClicked();
@@ -200,11 +210,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
     private int getFirstVisibleItemPosition() {
         return layoutManager.findFirstVisibleItemPosition();
-    }
-
-    private void sendMyAppList() {
-        Toast.makeText(this, R.string.toast_sending_packages, Toast.LENGTH_SHORT).show();
-        UploadMyAppsIService.startActionUploadApps(this);
     }
 
     public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {

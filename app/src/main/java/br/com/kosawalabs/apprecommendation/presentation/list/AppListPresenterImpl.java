@@ -50,6 +50,17 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     }
 
     @Override
+    public void onTryAgainButtonClicked() {
+        refreshList();
+    }
+
+    @Override
+    public void onSendDataButtonClicked() {
+        view.showSendingAppsMessage();
+        view.startActionUploadApps();
+    }
+
+    @Override
     public long getPageSize() {
         return model.getPageSize();
     }
@@ -57,11 +68,6 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     @Override
     public boolean hasStopLoading() {
         return model.hasStopLoading();
-    }
-
-    @Override
-    public void onTryAgainButtonClicked() {
-        refreshList();
     }
 
     @Override

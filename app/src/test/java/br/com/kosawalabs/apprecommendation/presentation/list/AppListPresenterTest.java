@@ -83,4 +83,12 @@ public class AppListPresenterTest {
 
         verify(model).fetchFirstPage();
     }
+
+    @Test
+    public void givenOnSendDataButtonClickedItShouldCallShowSendingAppsMessageAndStartActionUploadApps() {
+        presenterFromView.onSendDataButtonClicked();
+
+        verify(view).showSendingAppsMessage();
+        verify(view).startActionUploadApps();
+    }
 }

@@ -19,9 +19,11 @@ public abstract class AppListPresenter {
 
         void onRecommendedListClicked();
 
-        boolean hasStopLoading();
-
         void onTryAgainButtonClicked();
+
+        void onSendDataButtonClicked();
+
+        boolean hasStopLoading();
     }
 
     public interface AppListPresenterFromModel {
