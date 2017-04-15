@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.kosawalabs.apprecommendation.R;
-import br.com.kosawalabs.apprecommendation.data.AppDataRepository;
-import br.com.kosawalabs.apprecommendation.data.DataCallback;
-import br.com.kosawalabs.apprecommendation.data.DataError;
-import br.com.kosawalabs.apprecommendation.data.TokenDataRepository;
-import br.com.kosawalabs.apprecommendation.data.disk.TokenDiskRepository;
-import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.detail.contract.DetailPresenter;
 import br.com.kosawalabs.apprecommendation.presentation.detail.contract.DetailView;
@@ -42,35 +34,27 @@ public class AppDetailFragment extends Fragment implements DetailView {
     private Button downloadButton;
     private ImageView backdrop;
 
-    private AppDataRepository repository;
-
-    private App mItem;
-
     public AppDetailFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Activity activity = this.getActivity();
-        appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-        backdrop = (ImageView) activity.findViewById(R.id.detail_backdrop);
+        presenter = DetailInjector.inject(this, getContext().getApplicationContext());
+        presenter.init(getAppFromBundle());
+    }
 
-        TokenDataRepository tokenRepository = new TokenDiskRepository(getContext().getApplicationContext());
-        String token = tokenRepository.getToken();
-        if (TextUtils.isEmpty(token)) {
-            getActivity().finish();
-            return;
-        }
-        repository = new AppNetworkRepository(token);
-
-        if (getArguments().containsKey(ARG_ITEM_APP)) {
-            mItem = getArguments().getParcelable(ARG_ITEM_APP);
-        }
+    private App getAppFromBundle() {
+        return getArguments().containsKey(ARG_ITEM_APP) ?
+                (App) getArguments().getParcelable(ARG_ITEM_APP) : null;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Activity activity = this.getActivity();
+        appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+        backdrop = (ImageView) activity.findViewById(R.id.detail_backdrop);
+
         View rootView = inflater.inflate(R.layout.app_detail, container, false);
         detail = (TextView) rootView.findViewById(R.id.app_detail);
         icon = (ImageView) rootView.findViewById(R.id.detail_icon);
@@ -83,71 +67,37 @@ public class AppDetailFragment extends Fragment implements DetailView {
     @Override
     public void onResume() {
         super.onResume();
-        if (mItem != null) {
-            setAppBasicInfo();
-            repository.getApp(mItem.getId(), new DataCallback<App>() {
-                @Override
-                public void onSuccess(App result) {
-                    mItem = result;
-                    setAppComplementaryInfo();
-                }
-
-                @Override
-                public void onError(DataError error) {
-                    Log.d("TEST", String.valueOf(error));
-                }
-            });
-        }
+        presenter.onViewIsReady();
     }
 
-    private void setAppBasicInfo() {
-        setTitle();
-        setIcon();
-        setBackdrop();
-        setCategory();
-        setDeveloper();
-        setDownloadButton();
-    }
-
-    private void setAppComplementaryInfo() {
-        setDescription();
-    }
-
-    private void setTitle() {
+    @Override
+    public void setAppBasicInfo(final App app) {
         if (appBarLayout != null) {
-            appBarLayout.setTitle(mItem.getName());
+            appBarLayout.setTitle(app.getName());
         }
-    }
-
-    private void setDescription() {
-        detail.setText(mItem.getDescription());
-    }
-
-    private void setIcon() {
-        ImageLoaderFacade.loadImage(this, mItem.getIconUrl(), icon);
-    }
-
-    private void setBackdrop() {
         if (backdrop != null) {
-            ImageLoaderFacade.loadImage(this, mItem.getIconUrl(), backdrop);
+            ImageLoaderFacade.loadImage(this, app.getIconUrl(), backdrop);
         }
-    }
-
-    private void setCategory() {
-        category.setText(mItem.getCategoryName().toUpperCase());
-    }
-
-    private void setDeveloper() {
-        developer.setText(mItem.getDeveloperName().toUpperCase());
-    }
-
-    private void setDownloadButton() {
+        ImageLoaderFacade.loadImage(this, app.getIconUrl(), icon);
+        category.setText(app.getCategoryName().toUpperCase());
+        developer.setText(app.getDeveloperName().toUpperCase());
         downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(getGooglePlayIntent(mItem.getPackageName()));
+                startActivity(getGooglePlayIntent(app.getPackageName()));
             }
         });
+    }
+
+    @Override
+    public void setAppComplementaryInfo(App app) {
+        detail.setText(app.getDescription());
+    }
+    
+    @Override
+    public void closeView() {
+        if (getActivity() != null)
+            getActivity().finish();
     }
 
     @NonNull
