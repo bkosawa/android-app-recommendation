@@ -15,9 +15,9 @@ public abstract class AppListPresenter {
 
         long getPageSize();
 
-        void onRecommendedListClicked();
-
         void onAvailableListClicked();
+
+        void onRecommendedListClicked();
 
         boolean hasStopLoading();
 

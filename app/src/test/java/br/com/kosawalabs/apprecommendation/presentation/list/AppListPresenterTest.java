@@ -62,17 +62,19 @@ public class AppListPresenterTest {
     }
 
     @Test
-    public void givenOnAvailableAppsClickedItShouldCallSetRecommendedToFalse() throws Exception {
+    public void givenOnAvailableAppsClickedItShouldCallSetRecommendedToFalseAndFetchFirstPage() throws Exception {
         presenterFromView.onAvailableListClicked();
 
         verify(model).setRecommended(eq(false));
+        verify(model).fetchFirstPage();
     }
 
     @Test
-    public void givenOnRecommendedAppsClickedItShouldCallSetRecommendedToTrue() throws Exception {
+    public void givenOnRecommendedAppsClickedItShouldCallSetRecommendedToTrueAndFetchFirstPage() throws Exception {
         presenterFromView.onRecommendedListClicked();
 
         verify(model).setRecommended(eq(true));
+        verify(model).fetchFirstPage();
     }
 
     @Test

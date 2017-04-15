@@ -351,7 +351,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
                 default:
                     return false;
             }
-            presenter.refreshList();
             return true;
         }
 
