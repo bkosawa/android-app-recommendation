@@ -31,6 +31,8 @@ import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
+import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListPresenter;
+import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListView;
 import br.com.kosawalabs.apprecommendation.presentation.login.LoginActivity;
 import br.com.kosawalabs.apprecommendation.service.UploadMyAppsIService;
 import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
