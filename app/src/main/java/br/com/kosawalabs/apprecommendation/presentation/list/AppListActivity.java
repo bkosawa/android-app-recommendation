@@ -63,6 +63,13 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bindView();
+
+        presenter = AppListInjector.inject(this, getApplicationContext());
+        presenter.init();
+    }
+
+    private void bindView() {
         setContentView(R.layout.activity_app_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -94,9 +101,6 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         sendDataButton.setOnClickListener(this);
         tryAgainButton.setOnClickListener(this);
-
-        presenter = AppListInjector.inject(this, getApplicationContext());
-        presenter.init();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,9 +162,14 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
     }
 
     @Override
+    public void showLogoutMessage() {
+        Toast.makeText(getApplicationContext(), R.string.toast_logout, Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    @Override
     public void showLogin() {
         LoginActivity.startWithLogout(this);
-        Toast.makeText(getApplicationContext(), R.string.toast_logout, Toast.LENGTH_LONG).show();
         finish();
     }
 

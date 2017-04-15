@@ -82,6 +82,7 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
 
     @Override
     public void onRequestNotAllowed() {
+        view.showLogoutMessage();
         view.showLogin();
     }
 
