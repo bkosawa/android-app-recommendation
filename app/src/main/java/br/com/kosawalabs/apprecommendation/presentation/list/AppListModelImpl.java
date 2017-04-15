@@ -168,7 +168,7 @@ public class AppListModelImpl implements AppListModel {
         }
     }
 
-    private boolean shouldLoadMore() {
+    protected boolean shouldLoadMore() {
         return !isLoading && !isLastPage;
     }
 
