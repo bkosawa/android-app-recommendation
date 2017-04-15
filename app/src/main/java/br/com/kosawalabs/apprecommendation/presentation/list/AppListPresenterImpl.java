@@ -16,7 +16,7 @@ import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListVie
 import static br.com.kosawalabs.apprecommendation.data.DataError.FORBIDDEN;
 import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
 
-public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFromView {
+public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFromView, AppListPresenter.AppListPresenterFromModel {
     protected static final long PAGE_SIZE = 25L;
     private static final boolean FIRST_PAGE = true;
     private static final boolean NEXT_PAGE = false;
@@ -177,5 +177,31 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
 
     private boolean isResultLessThanAPage(List<App> result) {
         return result.size() < PAGE_SIZE;
+    }
+
+
+    @Override
+    public void onResultApps(List<App> apps) {
+        view.showApps(apps);
+    }
+
+    @Override
+    public void onResultMoreApps(List<App> apps) {
+        view.showMoreApps(apps);
+    }
+
+    @Override
+    public void onListNotFound() {
+        view.showSendDataButton();
+    }
+
+    @Override
+    public void onRequestNotAllowed() {
+        view.showLogin();
+    }
+
+    @Override
+    public void onRequestError(String cause) {
+        view.showError(cause);
     }
 }
