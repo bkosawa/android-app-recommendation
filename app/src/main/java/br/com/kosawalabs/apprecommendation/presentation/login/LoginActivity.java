@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private static final String EXTRA_LOGOUT = "br.com.kosawalabs.apprecommendation.EXTRA_LOGOUT";
     private LoginPresenter.LoginPresenterFromView presenter;
 
-    private AutoCompleteTextView usernameView;
+    private EditText usernameView;
     private EditText passwordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private void bindView() {
         setContentView(R.layout.activity_login);
-        usernameView = (AutoCompleteTextView) findViewById(R.id.username);
+        usernameView = (EditText) findViewById(R.id.username);
 
         passwordView = (EditText) findViewById(R.id.password);
         passwordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
