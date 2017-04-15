@@ -136,16 +136,16 @@ public class AppListPresenterImpl implements AppListPresenter {
         }
     }
 
-    private void callShowApps(List<App> result, boolean isFirstPage) {
+    private void callShowApps(List<App> apps, boolean isFirstPage) {
         isLoading = false;
-        if (isResultLessThanAPage(result)) {
+        if (isResultLessThanAPage(apps)) {
             isLastPage = true;
         }
-        current += result.size();
+        current += apps.size();
         if (isFirstPage) {
-            view.showApps(result);
+            view.showApps(apps);
         } else {
-            view.showMoreApps(result);
+            view.showMoreApps(apps);
         }
     }
 
