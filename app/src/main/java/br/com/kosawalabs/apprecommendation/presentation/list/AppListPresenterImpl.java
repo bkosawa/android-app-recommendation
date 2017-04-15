@@ -38,8 +38,13 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     }
 
     @Override
-    public void setRecommended(boolean recommended) {
-        model.setRecommended(recommended);
+    public void onRecommendedListClicked() {
+        model.setRecommended(true);
+    }
+
+    @Override
+    public void onAvailableListClicked() {
+        model.setRecommended(false);
     }
 
     @Override

@@ -8,6 +8,7 @@ import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListMod
 import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListPresenter;
 import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListView;
 
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -54,9 +55,24 @@ public class AppListPresenterTest {
     }
 
     @Test
-    public void givenonListScrolledToTheEndIsCalledItShouldCallFetchNextPage() throws Exception {
+    public void givenOnListScrolledToTheEndIsCalledItShouldCallFetchNextPage() throws Exception {
         presenterFromView.onListScrolledToTheEnd();
 
         verify(model).fetchNextPage();
+    }
+
+    @Test
+    public void givenOnAvailableAppsClickedItShouldCallSetRecommendedToFalse() throws Exception {
+        presenterFromView.onAvailableListClicked();
+
+        verify(model).setRecommended(eq(false));
+    }
+
+    @Test
+    public void givenOnRecommendedAppsClickedItShouldCallSetRecommendedToTrue() throws Exception {
+        presenterFromView.onRecommendedListClicked();
+
+        verify(model).setRecommended(eq(true));
+
     }
 }

@@ -343,10 +343,10 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_list:
-                    presenter.setRecommended(false);
+                    presenter.onAvailableListClicked();
                     break;
                 case R.id.action_list_recommended:
-                    presenter.setRecommended(true);
+                    presenter.onRecommendedListClicked();
                     break;
                 default:
                     return false;
