@@ -10,6 +10,7 @@ import br.com.kosawalabs.apprecommendation.data.DataCallback;
 import br.com.kosawalabs.apprecommendation.data.DataError;
 import br.com.kosawalabs.apprecommendation.data.TokenDataRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListModel;
 import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListPresenter;
 import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListView;
 
@@ -21,6 +22,7 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
     private static final boolean FIRST_PAGE = true;
     private static final boolean NEXT_PAGE = false;
     private final AppListView view;
+    private final AppListModel model;
     private final AppDataRepository repository;
     private final TokenDataRepository tokenRepository;
     private boolean isRecommended;
@@ -30,8 +32,16 @@ public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFr
 
     public AppListPresenterImpl(AppListView view, AppDataRepository repository, TokenDataRepository tokenRepository) {
         this.view = view;
+        this.model = null;
         this.repository = repository;
         this.tokenRepository = tokenRepository;
+    }
+
+    public AppListPresenterImpl(AppListView view, AppListModel model) {
+        this.view = view;
+        this.model = model;
+        this.repository = null;
+        this.tokenRepository = null;
     }
 
     @Override
