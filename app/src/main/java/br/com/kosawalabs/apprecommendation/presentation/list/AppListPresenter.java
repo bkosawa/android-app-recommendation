@@ -12,5 +12,5 @@ public interface AppListPresenter {
 
     void setRecommended(boolean isRecommended);
 
-    boolean isLoading();
+    boolean hasStopLoading();
 }

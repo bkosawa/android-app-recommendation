@@ -279,7 +279,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
 
         @Override
         public int getItemCount() {
-            return presenter.isLoading() ? this.apps.size() + 1 : this.apps.size();
+            return presenter.hasStopLoading() ? this.apps.size() : this.apps.size() + 1;
         }
 
         public abstract class ViewHolder extends RecyclerView.ViewHolder {

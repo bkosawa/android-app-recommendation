@@ -72,8 +72,8 @@ public class AppListPresenterImpl implements AppListPresenter {
     }
 
     @Override
-    public boolean isLoading() {
-        return isLoading;
+    public boolean hasStopLoading() {
+        return isLastPage;
     }
 
     protected void fetchFirstPage() {
