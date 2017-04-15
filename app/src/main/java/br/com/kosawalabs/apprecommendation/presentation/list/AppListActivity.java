@@ -26,8 +26,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.kosawalabs.apprecommendation.R;
-import br.com.kosawalabs.apprecommendation.data.disk.TokenDiskRepository;
-import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailActivity;
 import br.com.kosawalabs.apprecommendation.presentation.detail.AppDetailFragment;
@@ -93,7 +91,7 @@ public class AppListActivity extends AppCompatActivity implements AppListView, V
         sendDataButton.setOnClickListener(this);
         tryAgainButton.setOnClickListener(this);
 
-        presenter = new AppListPresenterImpl(this, new AppNetworkRepository(), new TokenDiskRepository(getApplicationContext()));
+        presenter = AppListInjector.inject(this, getApplicationContext());
         presenter.init();
     }
 
