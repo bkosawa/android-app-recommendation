@@ -24,9 +24,14 @@ import br.com.kosawalabs.apprecommendation.data.TokenDataRepository;
 import br.com.kosawalabs.apprecommendation.data.disk.TokenDiskRepository;
 import br.com.kosawalabs.apprecommendation.data.network.AppNetworkRepository;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.presentation.detail.contract.DetailPresenter;
+import br.com.kosawalabs.apprecommendation.presentation.detail.contract.DetailView;
 import br.com.kosawalabs.apprecommendation.visual.ImageLoaderFacade;
 
-public class AppDetailFragment extends Fragment {
+public class AppDetailFragment extends Fragment implements DetailView {
+
+    private DetailPresenter.DetailPresenterFromView presenter;
+
     public static final String ARG_ITEM_APP = "item_app";
 
     private CollapsingToolbarLayout appBarLayout;

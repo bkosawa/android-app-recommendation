@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 import br.com.kosawalabs.apprecommendation.R;
 import br.com.kosawalabs.apprecommendation.data.pojo.App;
+import br.com.kosawalabs.apprecommendation.presentation.detail.contract.DetailPresenter;
+import br.com.kosawalabs.apprecommendation.presentation.detail.contract.DetailView;
 import br.com.kosawalabs.apprecommendation.presentation.list.AppListActivity;
 
 public class AppDetailActivity extends AppCompatActivity {
