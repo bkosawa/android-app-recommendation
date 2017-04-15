@@ -42,7 +42,7 @@ import static android.view.View.VISIBLE;
 
 public class AppListActivity extends AppCompatActivity implements AppListView, View.OnClickListener {
     private boolean mTwoPane;
-    private AppListPresenter presenter;
+    private AppListPresenter.AppListPresenterFromView presenter;
     private LinearLayoutManager layoutManager;
     private SimpleItemRecyclerViewAdapter listAdapter;
     private ProgressBar progress;

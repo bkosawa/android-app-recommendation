@@ -1,16 +1,18 @@
 package br.com.kosawalabs.apprecommendation.presentation.list.contract;
 
 
-public interface AppListPresenter {
-    void init();
+public abstract class AppListPresenter {
+    public interface AppListPresenterFromView {
+        void init();
 
-    void refreshList();
+        void refreshList();
 
-    void loadMore();
+        void loadMore();
 
-    long getPageSize();
+        long getPageSize();
 
-    void setRecommended(boolean isRecommended);
+        void setRecommended(boolean isRecommended);
 
-    boolean hasStopLoading();
+        boolean hasStopLoading();
+    }
 }

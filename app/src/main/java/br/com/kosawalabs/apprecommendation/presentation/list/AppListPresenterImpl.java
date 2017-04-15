@@ -16,7 +16,7 @@ import br.com.kosawalabs.apprecommendation.presentation.list.contract.AppListVie
 import static br.com.kosawalabs.apprecommendation.data.DataError.FORBIDDEN;
 import static br.com.kosawalabs.apprecommendation.data.DataError.NOT_FOUND;
 
-public class AppListPresenterImpl implements AppListPresenter {
+public class AppListPresenterImpl implements AppListPresenter.AppListPresenterFromView {
     protected static final long PAGE_SIZE = 25L;
     private static final boolean FIRST_PAGE = true;
     private static final boolean NEXT_PAGE = false;
