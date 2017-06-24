@@ -10,6 +10,6 @@
     <item
         android:id="@+id/action_list_recommended"
         android:icon="@drawable/ic_recommended_app_list"
-        android:title="@string/bottom_navigation_available"
+        android:title="@string/bottom_navigation_recommended"
         app:showAsAction="always" />
 </menu>
